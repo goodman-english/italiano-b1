@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tom Skerritt, l&#x27;attore di «Alien» e «Top Gun», muore a 93 anni — Goodman Italiano B1</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: Calibri, 'Segoe UI', sans-serif;
+  background: #0e8388;
+  color: #1e2a2e;
+}
+
+/* ── TOP BAR ── */
+#pb-wrap { position: fixed; top: 0; left: 0; right: 0; height: 5px; background: rgba(255,255,255,0.2); z-index: 200; }
+#pb { height: 5px; background: #fb6a5a; transition: width 0.3s; width: 0%; }
+
+#topbar {
+  position: fixed; top: 5px; left: 0; right: 0; height: 50px;
+  background: #0e8388; z-index: 199;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2vw;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+#slide-label { color: white; font-size: 1.5vw; font-weight: 700; }
+#nav-btns { display: flex; gap: 1vw; }
+.nbtn {
+  background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3);
+  color: white; padding: 0.4vh 1.5vw; border-radius: 5px;
+  cursor: pointer; font-size: 1.3vw; font-family: inherit; font-weight: 600;
+}
+.nbtn:hover { background: rgba(255,255,255,0.28); }
+.nbtn:disabled { opacity: 0.3; cursor: default; }
+
+/* ── VIEWPORT ── */
+#viewport {
+  position: fixed;
+  top: 55px; left: 0; right: 0; bottom: 0;
+}
+
+/* ── SLIDES ── */
+.slide {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease;
+  overflow: hidden;
+}
+.slide.active { opacity: 1; pointer-events: all; }
+
+/* ════════════════════════════════
+   DIVIDER SLIDES
+════════════════════════════════ */
+.div-slide {
+  background: linear-gradient(160deg, #073c40 0%, #0e8388 60%, #0a5458 100%);
+  color: white;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 3vh 6vw;
+  position: relative;
+}
+.div-slide::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 0.8vh; background: #fb6a5a;
+}
+.div-icon { font-size: 7vw; line-height: 1; margin-bottom: 2vh; }
+.div-num { font-size: 1.2vw; letter-spacing: 0.4vw; text-transform: uppercase; opacity: 0.5; margin-bottom: 1.5vh; font-weight: 700; }
+.div-slide h2 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 5.5vw; line-height: 1.1; margin-bottom: 2.5vh; }
+.div-desc { font-size: 1.7vw; opacity: 0.78; max-width: 70vw; line-height: 1.6; margin-bottom: 3.5vh; }
+.div-tags { display: flex; flex-wrap: wrap; gap: 1vw; justify-content: center; max-width: 75vw; }
+.div-tag {
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 3vw; padding: 0.8vh 2vw; font-size: 1.3vw;
+}
+
+/* ════════════════════════════════
+   TITLE SLIDE
+════════════════════════════════ */
+.title-slide {
+  background: linear-gradient(150deg, #052b2e 0%, #0e8388 100%);
+  color: white;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 3vh 4vw;
+}
+.pod-label { font-size: 1.5vw; letter-spacing: 0.4vw; text-transform: uppercase; color: #fb6a5a; margin-bottom: 3vh; font-weight: 700; }
+.title-slide h1 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 6.5vw; line-height: 1.15; width: 90vw; margin-bottom: 3.5vh; }
+.red-line { width: 6vw; height: 0.6vh; background: #fb6a5a; margin: 0 auto 3vh; }
+.title-meta { display: flex; gap: 4vw; font-size: 1.8vw; opacity: 0.65; flex-wrap: wrap; justify-content: center; }
+
+/* ════════════════════════════════
+   CONTENT SLIDE BASE
+════════════════════════════════ */
+.con-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.slide-head {
+  border-left: 0.5vw solid #fb6a5a;
+  padding-left: 1.5vw;
+  margin-bottom: 2.5vh;
+  flex-shrink: 0;
+}
+.slide-head h2 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; color: #0e8388; font-size: 3.2vw; line-height: 1.15; margin-bottom: 0.4vh; }
+.sub { color: #5e7377; font-size: 1.3vw; }
+
+/* ════════════════════════════════
+   ANTICIPAZIONE — split slides
+════════════════════════════════ */
+.single-box {
+  flex: 1;
+  background: #e6f3f2;
+  border-radius: 1vw;
+  padding: 3vh 3vw;
+  border-top: 0.5vh solid #0e8388;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.single-box h3 { color: #0e8388; font-size: 2.2vw; margin-bottom: 2.5vh; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; }
+.single-box ol { padding-left: 2.5vw; flex: 1; display: flex; flex-direction: column; justify-content: space-around; }
+.single-box ol li { font-size: 2vw; line-height: 1.6; }
+.single-box p { font-size: 2vw; line-height: 1.75; flex: 1; display: flex; align-items: center; }
+
+/* ════════════════════════════════
+   FIGURE CHIAVE
+════════════════════════════════ */
+.figures-slide {
+  background: #ffeae6;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.figures-slide .slide-head { border-color: #fb6a5a; }
+.figures-slide .slide-head h2 { color: #e24e3e; }
+.figures-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 1.5vh 2vw;
+  flex: 1;
+}
+.figure-card {
+  background: white; border-radius: 0.8vw;
+  border-left: 0.5vw solid #fb6a5a;
+  padding: 1.5vh 2vw;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.figure-card .fname { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 1.9vw; font-weight: 700; color: #0e8388; margin-bottom: 0.8vh; }
+.figure-card .fdesc { font-size: 1.35vw; color: #3a4a4e; line-height: 1.5; }
+
+/* ════════════════════════════════
+   VOCABULARY
+════════════════════════════════ */
+.vocab-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 2vh 4vw 2vh;
+  overflow: hidden;
+}
+.vocab-group-label {
+  font-size: 1.1vw; letter-spacing: 0.2vw; text-transform: uppercase;
+  color: #5e7377; font-weight: 700; margin: 1.2vh 0 1vh;
+  padding-bottom: 0.6vh; border-bottom: 2px solid #d7e6e4;
+  flex-shrink: 0;
+}
+.vocab-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2vh 2vw; flex: 1;
+}
+.vcard {
+  background: white; border-radius: 0.8vw;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.09);
+  cursor: pointer; perspective: 900px;
+}
+.vcard-inner {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d; transition: transform 0.45s;
+}
+.vcard.flipped .vcard-inner { transform: rotateY(180deg); }
+.vfront, .vback {
+  position: absolute; width: 100%; height: 100%;
+  border-radius: 0.8vw; padding: 1.8vh 1.8vw;
+  backface-visibility: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.vfront { background: white; }
+.vfront .term { font-size: 2vw; font-weight: 700; color: #1e2a2e; line-height: 1.3; flex: 1; display: flex; align-items: center; }
+.vfront .vbottom { display: flex; flex-direction: column; gap: 0.6vh; flex-shrink: 0; }
+.vfront .rtag { display: inline-block; font-size: 1vw; padding: 0.3vh 0.8vw; border-radius: 2vw; background: #e6f3f2; color: #0e8388; font-weight: 600; align-self: flex-start; }
+.vfront .hint { font-size: 1.1vw; color: #9bb0b2; }
+.vback { background: #e6f3f2; transform: rotateY(180deg); }
+.vback .en { font-size: 1.8vw; font-weight: 700; color: #0e8388; margin-bottom: 1vh; }
+.vback .ex { font-size: 1.2vw; font-style: italic; color: #1e2a2e; border-left: 0.3vw solid #fb6a5a; padding-left: 0.8vw; line-height: 1.55; flex: 1; }
+.vback .rnote { font-size: 0.95vw; color: #5e7377; margin-top: 0.8vh; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   GRAMMAR
+════════════════════════════════ */
+.gram-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.gram-block {
+  background: white; border-radius: 1vw;
+  padding: 3vh 3vw;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-left: 0.6vw solid #0a6e72;
+  flex: 1; display: flex; flex-direction: column;
+}
+.gram-block h3 { color: #0e8388; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2.5vw; margin-bottom: 1.5vh; line-height: 1.2; }
+.gram-block .expl { font-size: 1.55vw; color: #3a4a4e; line-height: 1.7; margin-bottom: 2vh; flex-shrink: 0; }
+.gram-block ul { list-style: none; padding: 0; flex: 1; display: flex; flex-direction: column; justify-content: space-around; }
+.gram-block ul li { background: #e6f3f2; border-radius: 0.6vw; padding: 1.5vh 1.5vw; font-size: 1.45vw; font-style: italic; line-height: 1.6; }
+.gram-block ul li strong { font-style: normal; color: #fb6a5a; font-size: 1.5vw; }
+.gram-block .snote { font-size: 1.35vw; color: #1E8449; font-weight: 600; margin-top: 2vh; line-height: 1.55; padding: 1.5vh 1.5vw; background: #EAFAF1; border-radius: 0.6vw; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   COMPREHENSION
+════════════════════════════════ */
+.comp-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.comp-label { font-size: 1.2vw; letter-spacing: 0.2vw; text-transform: uppercase; color: #5e7377; margin-bottom: 2vh; font-weight: 700; padding-bottom: 1vh; border-bottom: 2px solid #d7e6e4; flex-shrink: 0; }
+.qlist { flex: 1; display: flex; flex-direction: column; gap: 1.5vh; }
+.qitem { background: white; border-radius: 0.8vw; padding: 2vh 2.5vw; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; gap: 1.5vw; font-size: 1.8vw; line-height: 1.65; flex: 1; align-items: center; }
+.qnum { color: #fb6a5a; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2.2vw; min-width: 2.5vw; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   CULTURAL
+════════════════════════════════ */
+.cult-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.cult-block {
+  background: white; border-radius: 1vw;
+  padding: 3vh 3vw;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-left: 0.6vw solid #fb6a5a;
+  flex: 1; display: flex; flex-direction: column;
+}
+.cult-block h3 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; color: #0e8388; font-size: 2.4vw; margin-bottom: 2vh; line-height: 1.2; flex-shrink: 0; }
+.cult-block p { font-size: 1.6vw; line-height: 1.8; flex: 1; }
+.en-gl { font-style: italic; color: #5e7377; font-size: 1.2vw; margin-top: 1.5vh; display: block; flex-shrink: 0; }
+.cult-hook { margin-top: 2.5vh; padding: 1.5vh 2vw; background: #fff1ef; border-radius: 0.6vw; font-size: 1.45vw; color: #e24e3e; line-height: 1.6; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   EXERCISES
+════════════════════════════════ */
+.ex-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.ex-block {
+  background: white; border-radius: 1vw;
+  padding: 2.5vh 3vw;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  flex: 1; display: flex; flex-direction: column;
+}
+.ex-block h3 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; color: #0e8388; font-size: 2.2vw; margin-bottom: 0.8vh; flex-shrink: 0; }
+.ex-instr { font-size: 1.3vw; color: #5e7377; margin-bottom: 1.8vh; line-height: 1.6; flex-shrink: 0; }
+
+/* Gap fill */
+.word-bank { display: flex; flex-wrap: wrap; gap: 1vw; margin-bottom: 2vh; padding: 1.5vh 1.5vw; background: #e6f3f2; border-radius: 0.8vw; flex-shrink: 0; }
+.dword { background: #0e8388; color: white; padding: 0.8vh 2vw; border-radius: 3vw; font-size: 1.5vw; cursor: pointer; user-select: none; font-weight: 600; }
+.dword.sel-w { outline: 0.3vw solid #fb6a5a; outline-offset: 0.2vw; }
+.dword.used { opacity: 0.3; cursor: default; }
+.gap-sentences { flex: 1; display: flex; flex-direction: column; justify-content: space-around; }
+.gap-sentence { font-size: 1.6vw; line-height: 1.4; }
+.drop-zone { display: inline-block; min-width: 10vw; border-bottom: 0.2vw solid #0e8388; margin: 0 0.5vw; padding: 0 0.5vw; color: #9bb0b2; font-style: italic; cursor: pointer; vertical-align: bottom; font-size: 1.5vw; }
+.drop-zone.filled { color: #1e2a2e; font-style: normal; font-weight: 700; background: #e6f3f2; border-radius: 0.3vw; border-bottom-color: #0a6e72; }
+.drop-zone.ok { border-bottom-color: #1E8449; background: #EAFAF1; color: #1E8449; }
+.drop-zone.wrong { border-bottom-color: #fb6a5a; background: #ffeae6; color: #fb6a5a; }
+.ex-btns { display: flex; gap: 1vw; margin-top: 1.5vh; flex-shrink: 0; }
+
+/* Answer key slide */
+.ak-slide {
+  background: #EAFAF1;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.ak-slide .slide-head { border-color: #1E8449; }
+.ak-slide .slide-head h2 { color: #1E8449; }
+.ak-content { background: white; border-radius: 1vw; padding: 2vh 3vw; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-left: 0.6vw solid #1E8449; flex: 1; display: flex; flex-direction: column; justify-content: space-around; }
+.ak-item { display: flex; gap: 1.5vw; align-items: center; padding: 1.5vh 2vw; background: #F4FDF8; border-radius: 0.6vw; font-size: 1.55vw; line-height: 1.6; }
+.ak-num { color: #1E8449; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2vw; min-width: 2.5vw; }
+.ak-word { font-weight: 700; color: #1E8449; }
+.ak-quote { font-style: italic; color: #5e7377; }
+
+/* Matching */
+.match-wrap { flex: 1; display: flex; flex-direction: column; }
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; flex: 1; margin-bottom: 1.5vh; }
+.match-col-label { font-size: 1.1vw; letter-spacing: 0.2vw; text-transform: uppercase; color: #5e7377; margin-bottom: 1vh; font-weight: 700; }
+.mitem { padding: 1.5vh 1.8vw; border-radius: 0.6vw; margin-bottom: 0.8vh; font-size: 1.45vw; cursor: pointer; border: 0.2vw solid transparent; background: #e6f3f2; transition: all 0.18s; line-height: 1.45; }
+.mitem:hover { border-color: #0a6e72; }
+.mitem.sel { border-color: #0e8388; background: #cde9e7; font-weight: 700; }
+.mitem.matched { border-color: #1E8449; background: #EAFAF1; color: #1E8449; cursor: default; font-weight: 600; }
+.mitem.bad { border-color: #fb6a5a; background: #ffeae6; }
+
+/* VF */
+.vf-list { flex: 1; display: flex; flex-direction: column; gap: 1.2vh; }
+.vf-row { display: flex; gap: 1.5vw; align-items: center; padding: 1.8vh 2vw; background: white; border-radius: 0.8vw; box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-size: 1.5vw; line-height: 1.6; flex: 1; }
+.vf-btns { display: flex; gap: 0.6vw; flex-shrink: 0; }
+.vfb { padding: 0.6vh 1.2vw; border-radius: 2vw; border: 0.2vw solid; font-size: 1.2vw; font-weight: 700; cursor: pointer; background: transparent; font-family: inherit; }
+.vfb.V { border-color: #1E8449; color: #1E8449; }
+.vfb.F { border-color: #fb6a5a; color: #fb6a5a; }
+.vfb.N { border-color: #5e7377; color: #5e7377; }
+.vfb.correct { background: #1E8449; color: white; border-color: #1E8449; }
+.vfb.incorrect { background: #fb6a5a; color: white; border-color: #fb6a5a; }
+.vf-note { font-size: 1.1vw; color: #1E8449; font-style: italic; margin-top: 0.5vh; display: none; }
+.vf-note.show { display: block; }
+
+/* Buttons */
+.ak-btn { padding: 1vh 2vw; background: #1E8449; color: white; border: none; border-radius: 0.5vw; cursor: pointer; font-size: 1.3vw; font-weight: 700; font-family: inherit; flex-shrink: 0; }
+.ak-btn:hover { opacity: 0.85; }
+.ak-btn.grey { background: #5e7377; }
+.answer-key { display: none; margin-top: 1.5vh; padding: 1.5vh 2vw; background: #EAFAF1; border-radius: 0.8vw; border-left: 0.4vw solid #1E8449; font-size: 1.3vw; line-height: 1.9; flex-shrink: 0; }
+.answer-key.show { display: block; }
+
+/* ════════════════════════════════
+   DISCUSSION
+════════════════════════════════ */
+.disc-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.disc-card { background: white; border-radius: 1vw; padding: 2.5vh 3vw; box-shadow: 0 4px 16px rgba(0,0,0,0.08); flex: 1; display: flex; flex-direction: column; }
+.disc-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2vh; flex-shrink: 0; }
+.disc-dots { display: flex; gap: 0.8vw; }
+.disc-dot { width: 1.2vw; height: 1.2vw; border-radius: 50%; background: #e6f3f2; border: 0.2vw solid #0a6e72; cursor: pointer; }
+.disc-dot.active { background: #0e8388; }
+.disc-dot.done { background: #1E8449; border-color: #1E8449; }
+.disc-qnum { font-size: 1.4vw; color: #5e7377; font-weight: 600; }
+.disc-q { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2vw; line-height: 1.6; color: #1e2a2e; margin-bottom: 2vh; flex-shrink: 0; }
+.disc-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; flex: 1; min-height: 0; }
+.disc-col { display: flex; flex-direction: column; min-height: 0; }
+.disc-col-label { font-size: 1.1vw; letter-spacing: 0.2vw; text-transform: uppercase; color: #5e7377; margin-bottom: 0.8vh; font-weight: 700; flex-shrink: 0; }
+.disc-user-box { flex: 1; padding: 1.5vh 1.5vw; border-radius: 0.8vw; background: #e6f3f2; font-size: 1.4vw; line-height: 1.7; border: 0.2vw solid transparent; min-height: 0; overflow-y: auto; }
+.disc-user-box.listening { border-color: #fb6a5a; background: #ffeae6; }
+.disc-user-box .ph { color: #9bb0b2; font-style: italic; }
+.disc-model-box { flex: 1; padding: 1.5vh 1.5vw; border-radius: 0.8vw; background: #EAFAF1; font-size: 1.3vw; line-height: 1.8; min-height: 0; overflow-y: auto; }
+.disc-model-box.blur .mtext { filter: blur(6px); user-select: none; }
+.reveal-btn { display: inline-block; margin-top: 0.8vh; padding: 0.7vh 1.8vw; background: #1E8449; color: white; border: none; border-radius: 0.5vw; font-size: 1.2vw; font-weight: 700; cursor: pointer; font-family: inherit; flex-shrink: 0; }
+.mic-row { display: flex; align-items: center; gap: 1.5vw; margin-top: 1.5vh; flex-shrink: 0; }
+.mic-btn { width: 5vw; height: 5vw; border-radius: 50%; border: none; background: #fb6a5a; color: white; font-size: 2.2vw; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(192,57,43,0.38); flex-shrink: 0; }
+.mic-btn.on { background: #1E8449; animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(30,132,73,0.5); } 50% { box-shadow: 0 0 0 1vw rgba(30,132,73,0); } }
+.mic-status { font-size: 1.2vw; color: #5e7377; line-height: 1.5; }
+.disc-nav { display: flex; gap: 1vw; justify-content: flex-end; margin-top: 1.5vh; flex-shrink: 0; }
+.disc-nav-btn { padding: 0.8vh 2.5vw; border-radius: 0.5vw; border: 0.2vw solid #0e8388; background: transparent; color: #0e8388; font-size: 1.3vw; font-weight: 700; cursor: pointer; font-family: inherit; }
+.disc-nav-btn:hover { background: #0e8388; color: white; }
+.speech-warn { background: #fff1ef; border: 0.15vw solid #fb6a5a; border-radius: 0.6vw; padding: 1vh 1.5vw; font-size: 1.2vw; color: #e24e3e; margin-bottom: 1.5vh; display: none; line-height: 1.5; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   HOMEWORK
+════════════════════════════════ */
+.hw-slide {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.hw-slide.red { background: #fff1ef; }
+.hw-slide.blue { background: #e6f3f2; }
+.hw-slide.gold { background: #ffeae6; }
+.hw-block { background: white; border-radius: 1vw; padding: 3.5vh 3.5vw; box-shadow: 0 4px 16px rgba(0,0,0,0.08); flex: 1; display: flex; flex-direction: column; }
+.hw-block.red-b { border-left: 0.6vw solid #fb6a5a; }
+.hw-block.blue-b { border-left: 0.6vw solid #0e8388; }
+.hw-block.gold-b { border-left: 0.6vw solid #fb6a5a; }
+.hw-block h3 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2.8vw; margin-bottom: 2.5vh; line-height: 1.15; flex-shrink: 0; }
+.hw-block.red-b h3 { color: #fb6a5a; }
+.hw-block.blue-b h3 { color: #0e8388; }
+.hw-block.gold-b h3 { color: #e24e3e; }
+.hw-block p { font-size: 1.6vw; line-height: 1.9; flex: 1; }
+.hw-prompt { font-size: 2vw; font-weight: 700; color: #1e2a2e; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; margin: 2.5vh 0; line-height: 1.45; flex-shrink: 0; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.8vw; margin-top: 2vh; flex-shrink: 0; }
+.chip { background: #e6f3f2; color: #0e8388; padding: 0.5vh 1.2vw; border-radius: 2vw; font-size: 1.2vw; font-weight: 700; }
+
+.kbd-hint { position: fixed; bottom: 1.5vh; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.55); color: white; font-size: 1.1vw; padding: 0.5vh 1.5vw; border-radius: 2vw; pointer-events: none; opacity: 0.78; white-space: nowrap; z-index: 200; }
+
+
+/* ════ GOODMAN ITALIANO — brand overrides ════ */
+:root{ --teal:#0E8388; --teal-dk:#0A5458; --teal-dkr:#073C40; --coral:#FB6A5A; --coral-dk:#E24E3E;
+       --ink:#1E2A2E; --muted:#5E7377; --paper:#FBFDFD; --teal-tint:#E6F3F2; }
+html,body{ background:#073C40; }
+#pb{ background:var(--coral); }
+
+/* ── Goodman-style SECTION SEPARATORS (flat & robust: no absolute, no z-index) ── */
+.sep-slide{
+  background:#0A5458;
+  background-image:
+    radial-gradient(circle at 88% 10%, #0E8388 0 18vh, rgba(14,131,136,0) 18vh),
+    radial-gradient(circle at 82% 94%, #073C40 0 13vh, rgba(7,60,64,0) 13vh);
+  width:100%; height:100%; isolation:isolate;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:0 8vw; border-left:1vw solid #FB6A5A; color:#fff;
+}
+.sep-kicker{ font-family:'Trebuchet MS',sans-serif; font-weight:700; font-size:1.5vw; letter-spacing:0.5vw; color:#8FC9C9; margin-bottom:0.6vh; }
+.sep-number{ font-family:'Trebuchet MS',sans-serif; font-weight:800; font-size:13vw; line-height:0.85; color:#FB6A5A; margin-bottom:1vh; }
+.sep-title{ font-family:'Trebuchet MS',sans-serif; font-weight:800; font-size:5vw; line-height:1.05; color:#fff; margin-bottom:2vh; max-width:78vw; }
+.sep-sub{ font-family:Calibri,'Segoe UI',sans-serif; font-style:italic; font-size:1.7vw; color:#CDE6E5; max-width:64vw; line-height:1.5; margin-bottom:2.5vh; }
+.sep-tags{ display:flex; flex-wrap:wrap; gap:0.8vw; max-width:70vw; }
+.sep-tag{ background:rgba(255,255,255,0.10); border:1px solid rgba(143,201,201,0.45); border-radius:2vw; padding:0.7vh 1.6vw; font-size:1.2vw; color:#E6F3F2; }
+.sep-brand{ margin-top:4vh; font-family:'Trebuchet MS',sans-serif; font-size:1.1vw; color:#7FB6B6; }
+
+/* ── Goodman TITLE SLIDE (flat & robust, branded Goodman · Italiano) ── */
+.title-slide{
+  background:#0A5458;
+  background-image:
+    radial-gradient(circle at 92% 4%, #0E8388 0 30vh, rgba(14,131,136,0) 30vh),
+    radial-gradient(circle at 97% 94%, #073C40 0 17vh, rgba(7,60,64,0) 17vh);
+  width:100%; height:100%; isolation:isolate;
+  display:flex; flex-direction:column; justify-content:center;
+  align-items:flex-start; text-align:left;
+  padding:0 8vw; border-left:1vw solid #FB6A5A; color:#fff;
+}
+.ts-brand{ font-family:'Trebuchet MS',sans-serif; font-weight:800; font-size:2.4vw; margin-bottom:2.5vh; }
+.ts-brand-name{ color:#fff; } .ts-brand-lang{ color:#FB6A5A; }
+.ts-kicker{ font-family:'Trebuchet MS',sans-serif; font-weight:700; font-size:1.4vw; letter-spacing:0.35vw; color:#FB6A5A; margin-bottom:1.6vh; }
+.ts-title{ font-family:'Trebuchet MS',sans-serif; font-weight:800; font-size:6vw; line-height:1.05; color:#fff; max-width:80vw; margin-bottom:3.2vh; }
+.ts-chips{ display:flex; flex-wrap:wrap; gap:1.2vw; }
+.ts-chip{ display:flex; align-items:center; gap:0.5vw; background:#073C40; border:1px solid #0E8388; border-radius:2vw; padding:0.8vh 1.8vw; }
+.ts-chip-k{ font-family:Calibri,'Segoe UI',sans-serif; font-weight:700; font-size:1.1vw; color:#FB6A5A; letter-spacing:0.08vw; }
+.ts-chip-v{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1.3vw; color:#fff; }
+
+/* Content-slide brand strip (Goodman · Italiano), top-left */
+.brand-strip{ font-family:'Trebuchet MS',sans-serif; font-weight:700; font-size:1.15vw; margin-bottom:0.9vh; flex-shrink:0; }
+.bs-name{ color:var(--teal); }
+.bs-lang{ color:var(--muted); }
+
+/* -- Video "Mentre guardi" slides (embedded, auto-cued) -- */
+.video-slide{ background:#FBFDFD; width:100%; height:100%; display:flex; flex-direction:column; padding:3vh 4vw; overflow:hidden; }
+.video-frame{ height:44vh; aspect-ratio:16/9; max-width:92vw; margin:0.5vh auto 2vh; border-radius:12px; overflow:hidden; box-shadow:0 2px 10px rgba(7,60,64,0.18); }
+.video-frame iframe{ width:100%; height:100%; border:0; display:block; }
+.video-summary{ background:#fff; border:1px solid #E2EEED; border-left:0.5vw solid #FB6A5A; border-radius:8px; padding:1.8vh 2vw; max-width:84vw; margin:0 auto; }
+.vs-label{ font-family:'Trebuchet MS',sans-serif; font-weight:700; color:#0E8388; font-size:1.15vw; letter-spacing:0.05vw; margin-bottom:0.7vh; }
+.video-summary p{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1.45vw; line-height:1.6; color:#1E2A2E; }
+
+/* Comprehension flip cards: content-sized (no fixed height), faces grid-stacked */
+.comp-slide{ display:flex; flex-direction:column; }
+.comp-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.8vh 1.5vw; align-items:start; margin:auto 0; }
+.ccard{ perspective:1400px; cursor:pointer; }
+.ccard-inner{ display:grid; transition:transform .45s; transform-style:preserve-3d; }
+.ccard.flipped .ccard-inner{ transform:rotateY(180deg); }
+.cface{ grid-area:1/1; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:10px; padding:1.8vh 1.5vw; display:flex; flex-direction:column; box-shadow:0 1px 4px rgba(7,60,64,0.10); }
+.cfront{ background:#fff; border:1px solid #E2EEED; border-left:0.4vw solid #0E8388; }
+.cback{ background:#0A5458; color:#fff; transform:rotateY(180deg); border-left:0.4vw solid #FB6A5A; }
+.cnum{ font-family:'Trebuchet MS',sans-serif; font-weight:800; color:#FB6A5A; font-size:1.6vw; }
+.cq{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1.35vw; line-height:1.45; color:#1E2A2E; margin-top:0.5vh; }
+.chint{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1vw; color:#5E7377; margin-top:1.2vh; }
+.ca-label{ font-family:'Trebuchet MS',sans-serif; font-weight:700; color:#9FE3E3; font-size:1.1vw; letter-spacing:0.05vw; margin-bottom:0.6vh; }
+.ca{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1.3vw; line-height:1.5; color:#fff; }
+
+/* Content headers -> Trebuchet, teal; coral accent bar */
+.slide-head{ border-left-color:var(--coral); }
+.slide-head h2{ font-family:'Trebuchet MS',sans-serif; color:var(--teal); }
+
+/* Text-size control */
+#tsize{display:flex;align-items:center;gap:6px;margin:0 auto;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 8px;color:#fff;font-size:13px;font-family:Calibri,'Segoe UI',sans-serif}
+#tsize button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:4px;cursor:pointer;font-weight:700;padding:2px 8px;font-family:inherit}
+#tsize button:hover{background:rgba(255,255,255,.32)}
+@media print{#tsize,#topbar,#pb-wrap,.kbd-hint{display:none}}
+
+
+/* ════════════════════════════════
+   READING (Goodman Ungherese)
+════════════════════════════════ */
+.read-slide { background: #fbfdfd; width: 100%; height: 100%; display: flex; flex-direction: column; padding: 3vh 4vw; overflow: hidden; }
+.read-box { background: white; border-radius: 1vw; padding: 2.5vh 3vw; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-left: 0.6vw solid #0e8388; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1.4vh; }
+.read-box h3 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; color: #0a5458; font-size: 2.1vw; line-height: 1.25; }
+.read-box p { font-size: 1.55vw; line-height: 1.8; color: #1e2a2e; }
+.read-box p.read-lead { font-weight: 700; color: #0e8388; font-size: 1.6vw; }
+.read-link { align-self: flex-start; margin-top: auto; font-size: 1.25vw; font-weight: 700; color: #fb6a5a; text-decoration: none; padding: 0.8vh 1.4vw; border: 0.15vw solid #fb6a5a; border-radius: 2vw; }
+.read-link:hover { background: #fff1ef; }
+/* Ungherese: 4 cards per row (groups of 4) */
+.vocab-grid { grid-template-columns: repeat(4, 1fr); }
+.vfront .term { font-size: 1.7vw; }
+.vback .en { font-size: 1.45vw; }
+.vback .ex { font-size: 1.05vw; }
+
+/* video link row + discussion nav states (Ungherese) */
+.video-linkrow { display:flex; align-items:center; gap:1.2vw; margin: -1vh auto 1.4vh; max-width:92vw; }
+.video-link { font-size:1.15vw; font-weight:700; color:#fff; background:#fb6a5a; text-decoration:none; padding:0.9vh 1.6vw; border-radius:2vw; box-shadow:0 2px 8px rgba(251,106,90,.35); }
+.video-link:hover { background:#e24e3e; }
+.video-linknote { font-size:1.05vw; color:#5e7377; }
+.disc-nav-btn:disabled { opacity:.35; cursor:default; }
+.disc-nav-btn.to-slide { background:#fb6a5a; color:#fff; border-color:#fb6a5a; }
+</style>
+</head>
+<body>
+
+<div id="pb-wrap"><div id="pb"></div></div>
+<div id="topbar">
+  <div id="slide-label">1 / 1 — …</div>
+  <div id="nav-btns">
+    <button class="nbtn" id="btn-prev" onclick="go(-1)" disabled>← Indietro</button>
+    <button class="nbtn" id="btn-next" onclick="go(1)">Avanti →</button>
+  </div>
+</div>
+<div id="viewport"></div>
+<div class="kbd-hint">← → per sfogliare &nbsp;·&nbsp; R = microfono (Conversazione)</div>
+
+<script>
+const SPEC = {"lesson": {"title": "Tom Skerritt, l'attore di «Alien» e «Top Gun», muore a 93 anni", "series": "euronews (in italiano)", "level": "B1", "lang": "it", "date": "ottobre 2026", "time": "30–45 minuti", "topic": "Cultura · Cinema · Necrologi", "file_base": "43_Tom_Skerritt_IT_B1", "source_video": "https://www.youtube.com/watch?v=fAyODFaLdVM", "source_article": "https://it.euronews.com/2026/10/23/tom-skerritt-attore-di-alien-e-top-gun-muore-a-93-anni-omaggi"}, "title_slide": {"label": "Titolo", "pod_label": "euronews (in italiano)", "h1": "Tom Skerritt, l'attore di «Alien» e «Top Gun», muore a 93 anni"}, "dividers": {"warmup": {"title": "Riscaldamento", "desc": "Prima di guardare il servizio: parla dell'argomento e leggi di cosa parla la notizia.", "tags": ["3 domande", "Breve riassunto", "Numeri e nomi"]}, "vocab": {"title": "Parole chiave", "desc": "Sedici parole ed espressioni importanti dal servizio: in italiano, con la traduzione inglese e una frase di esempio.", "tags": ["Il cinema e la televisione", "La carriera", "L'addio e l'omaggio", "Il carattere"]}, "video": {"title": "Guarda il video!", "tags": ["1 parte", "euronews (in italiano)"], "desc": "Il video è in una sola parte. Prima leggi il breve riassunto in italiano semplice: così sarà più facile capire!"}, "reading": {"title": "Lettura", "desc": "L'articolo di Euronews in versione breve, livello B1. Se vuoi, leggi anche l'originale!", "tags": ["Articolo semplificato", "5 paragrafi"]}, "grammar": {"title": "Grammatica", "desc": "«Julia Roberts, che in Steel Magnolias interpretava sua figlia…» «un film sulla guerra di Corea che segnò anche il debutto di Robert Redford» «Redford, che è morto lo scorso anno…» — i necrologi sono pieni di frasi relative: servono a dire chi era una persona senza cominciare una frase nuova. Vediamo il sistema completo: che, cui, il cui, il quale, chi, ciò che, il che.", "tags": ["che", "prep. + cui", "il cui", "il quale", "B1"]}, "comprehension": {"title": "Comprensione", "desc": "Sei domande: prima i fatti del servizio, poi le tue idee. Clicca sulla carta per vedere la risposta modello!", "tags": ["3 domande sui fatti", "3 domande aperte", "Risposte modello"]}, "exercises": {"title": "Esercizi", "desc": "Due esercizi interattivi per praticare le parole e il testo.", "tags": ["Parole mancanti", "Vero / Falso / Non detto"]}, "discussion": {"title": "Conversazione", "desc": "Rispondi a voce, in italiano, alle tre domande seguenti. Parla ad alta voce e in modo chiaro! Il microfono registra quello che dici: poi confronta con la risposta modello.", "tags": ["3 domande", "Microfono", "Risposte modello"]}, "homework": {"title": "Compiti", "desc": "Un breve compito scritto da fare prima della prossima lezione.", "tags": ["80–100 parole", "4 frasi relative"]}}, "warmup": {"questions": ["Hai visto «Alien» o «Top Gun»? Ti ricordi qualche personaggio?", "C'è un attore o un'attrice che segui da tanti anni? Perché ti piace?", "Secondo te, è più importante il protagonista di un film o gli attori dei ruoli secondari?"], "episode": {"h2": "Di cosa parla il servizio?", "sub": "Breve riassunto — euronews (in italiano), 23 ottobre 2026", "body": "Tom Skerritt, veterano di Hollywood noto per i ruoli cult in «Alien» e «Top Gun», è morto a 93 anni per cause naturali. Lo ha annunciato la sua famiglia. Il servizio ricorda la sua lunga carriera tra cinema e televisione e gli omaggi di chi lo conosceva."}}, "figures": {"label": "Numeri e nomi", "h2": "Numeri e nomi", "sub": "Vale la pena ricordarli prima di guardare il servizio! (alcuni dati vengono dall'articolo)", "items": [["93 anni", "L'età di Tom Skerritt quando è morto, per cause naturali."], ["«Alien» e «Top Gun»", "I due film cult per cui è più famoso: in «Alien» era il capitano dell'astronave, in «Top Gun» un istruttore di volo (dall'articolo)."], ["1962", "L'anno del suo primo film, «War Hunt», che fu anche il debutto di Robert Redford, Sydney Pollack e Francis Ford Coppola (dall'articolo)."], ["1993", "L'anno in cui vinse l'Emmy come miglior attore per la serie «Picket Fences» (dall'articolo)."], ["Julia Roberts", "L'attrice che in «Steel Magnolias» interpretava sua figlia; lo ha ricordato su Instagram (dall'articolo)."], ["5 figli", "Skerritt lascia la terza moglie, Julie Tokashiki, e cinque figli (dall'articolo)."]]}, "vocab": [{"group": "🎬  Il cinema e la televisione", "items": [{"it": "l'attore / l'attrice", "en": "actor / actress", "ex": "l'attore di «Alien» e «Top Gun»", "reg": "neutro; «recitare» = to act; «la recitazione» = acting"}, {"it": "il ruolo", "en": "role, part", "ex": "i ruoli cult in «Alien» e «Top Gun»", "reg": "neutro; «interpretare un ruolo» = to play a part; «il ruolo da protagonista» = leading role"}, {"it": "la serie tv", "en": "TV series", "ex": "lo sceriffo nella serie tv «Picket Fences»", "reg": "neutro; invariabile: una serie / due serie; «la puntata» = episode"}, {"it": "il caratterista", "en": "character actor", "ex": "un caratterista intrappolato nel corpo di un protagonista", "reg": "tecnico/giornalistico; opposto: «il protagonista» = leading actor"}]}, {"group": "🏆  La carriera", "items": [{"it": "la carriera", "en": "career", "ex": "la sua straordinaria carriera di attore", "reg": "neutro; «fare carriera» = to get on, to be successful"}, {"it": "il debutto", "en": "debut", "ex": "il film che segnò il debutto di Robert Redford", "reg": "neutro; verbo: «debuttare»; anche «l'esordio» (più formale)"}, {"it": "la nomination / la candidatura", "en": "nomination", "ex": "due nomination agli Emmy", "reg": "«nomination» (invariabile) è l'anglicismo usato per i premi; «candidatura» più formale"}, {"it": "vincere un premio", "en": "to win an award", "ex": "vinse il premio come miglior attore", "reg": "neutro; participio: «vinto»; «il vincitore» = winner"}]}, {"group": "🕯️  L'addio e l'omaggio", "items": [{"it": "morire (è morto)", "en": "to die (he has died)", "ex": "è morto a 93 anni", "reg": "neutro; ausiliare ESSERE; passato remoto: «morì»; formale/eufemistico: «è scomparso»"}, {"it": "per cause naturali", "en": "of natural causes", "ex": "è morto per cause naturali", "reg": "neutro/formale; tipico dei necrologi e della cronaca"}, {"it": "rendere omaggio (a)", "en": "to pay tribute (to)", "ex": "gli omaggi di colleghi e amici", "reg": "formale; «un omaggio» = a tribute; attenzione: «in omaggio» = free of charge"}, {"it": "lasciare (qualcuno)", "en": "to be survived by; to leave", "ex": "lascia la terza moglie e cinque figli", "reg": "neutro; nei necrologi «lascia la moglie» = he is survived by his wife"}]}, {"group": "💬  Il carattere", "items": [{"it": "il senso dell'umorismo", "en": "sense of humour", "ex": "lo conoscevamo per il suo senso dell'umorismo", "reg": "neutro; «umoristico» = humorous; colloquiale: «è simpatico»"}, {"it": "la saggezza", "en": "wisdom", "ex": "la curiosità, la saggezza, la generosità", "reg": "neutro; aggettivo: «saggio»"}, {"it": "gentile", "en": "kind", "ex": "una luce splendente di un uomo gentile", "reg": "neutro; attenzione: non significa \"gentle\" (= «dolce, delicato»)"}, {"it": "l'integrità (f.)", "en": "integrity", "ex": "ha mantenuto la sua integrità", "reg": "formale; «mantenere l'integrità» = to keep one's integrity"}]}], "video": {"url": "https://www.youtube.com/watch?v=fAyODFaLdVM", "title": "Tom Skerritt, attore di Alien e Top Gun, muore a 93 anni: omaggi", "channel": "euronews (in italiano)", "parts": [{"summary": "Il servizio annuncia la morte di Tom Skerritt, veterano di Hollywood noto per i ruoli cult in «Alien» e «Top Gun». L'attore è morto a 93 anni per cause naturali, come ha comunicato la famiglia. Il servizio ricorda la sua carriera e gli omaggi che sono arrivati dopo la notizia."}]}, "reading": {"title": "Addio a Tom Skerritt, «un caratterista nel corpo di un protagonista»", "lead": "L'attore americano, che molti ricordano in «Alien» e «Top Gun», è morto a 93 anni. La famiglia e i colleghi lo salutano con parole piene di affetto.", "paragraphs": ["Tom Skerritt, veterano di Hollywood noto per i ruoli cult in «Alien» e «Top Gun», è morto a 93 anni per cause naturali. Lo ha annunciato la famiglia, che in una dichiarazione ha scritto: «Il mondo conosceva Tom per la sua straordinaria carriera di attore; noi lo conoscevamo per il suo senso dell'umorismo, la curiosità, la saggezza, la generosità e l'amore che portava nelle nostre vite».", "Sullo schermo Skerritt era spesso una figura di autorità, solida e ironica: l'istruttore di volo in «Top Gun», lo sceriffo duro ma giusto nella serie tv «Picket Fences», il capitano che muore in «Alien». Proprio per «Picket Fences» ricevette due nomination agli Emmy e nel 1993 vinse il premio come miglior attore in una serie drammatica.", "Tra gli altri suoi ruoli ci sono il marito di Sally Field in «Steel Magnolias» e un opportunista che ostacola il personaggio di Jodie Foster in «Contact». Julia Roberts, che in «Steel Magnolias» interpretava sua figlia, ha pubblicato una foto dei due e lo ha descritto come «una luce splendente di un uomo gentile».", "Il suo primo film, nel 1962, fu «War Hunt», un film sulla guerra di Corea con cui debuttarono anche Robert Redford, Sydney Pollack e Francis Ford Coppola. Redford, che è morto l'anno scorso, diventò un amico per la vita: «I suoi valori erano vicini ai miei», raccontò nel 2007, «e ha mantenuto la sua integrità».", "Nel 1997 Skerritt parlò così di sé: «Uno scrittore una volta mi ha descritto come un caratterista intrappolato nel corpo di un protagonista. È un bel complimento: sono riuscito a camminare sul filo tra televisione e cinema». Tom Skerritt lascia la terza moglie, Julie Tokashiki, e cinque figli."], "url": "https://it.euronews.com/2026/10/23/tom-skerritt-attore-di-alien-e-top-gun-muore-a-93-anni-omaggi"}, "grammar": [{"label": "Grammatica — Pronomi relativi che / cui / il quale", "subtitle": "«Julia Roberts, che interpretava sua figlia» · «un film che segnò il debutto di Redford» · «l'amore che portava nelle nostre vite» · «un film con cui debuttarono anche…»", "title": "Dire chi era una persona: le frasi relative", "expl": "Un necrologio deve dire molte cose su una persona in poco spazio. Per questo l'articolo su Tom Skerritt è pieno di FRASI RELATIVE: invece di due frasi («Julia Roberts ha pubblicato una foto. In Steel Magnolias interpretava sua figlia») ne fa una sola: «Julia Roberts, CHE in Steel Magnolias interpretava sua figlia, ha pubblicato una foto». Il pronome relativo riprende un nome già detto (l'ANTECEDENTE) e apre una nuova frase. 1) CHE — soggetto o oggetto diretto. È invariabile (maschile, femminile, singolare, plurale) e non vuole mai una preposizione. Soggetto: «un film CHE segnò il debutto di Redford» (il film segnò…). Oggetto: «l'amore CHE portava nelle nostre vite» (portava l'amore). Attenzione: in italiano il relativo NON si può omettere come in inglese: \"the love he brought\" → «l'amore CHE portava» (✘ «l'amore portava»). 2) CUI — dopo una preposizione. «Il film CON CUI debuttarono» (debuttarono con il film), «la serie PER CUI vinse l'Emmy», «gli amici A CUI pensava», «la città IN CUI viveva» (= dove viveva). Anche «cui» è invariabile. La preposizione va SEMPRE davanti a cui: l'inglese \"the film he debuted in\" → «il film in cui debuttò» (✘ «il film che debuttò in»). Con la preposizione «a» si può anche dire semplicemente «cui»: «la persona cui ho scritto» (formale). 3) IL CUI / LA CUI / I CUI / LE CUI — possesso (inglese \"whose\"). L'articolo si accorda con la cosa posseduta, NON con il possessore: «Skerritt, LA CUI carriera è durata sessant'anni» (la carriera); «un attore I CUI film tutti conoscono» (i film). 4) IL QUALE / LA QUALE / I QUALI / LE QUALI — variabile, più formale. Può sostituire «che» e «cui», con le preposizioni articolate: «la serie NELLA QUALE recitava» = «in cui recitava»; «i colleghi DAI QUALI era amato». È utile soprattutto per evitare ambiguità, perché mostra genere e numero: «la moglie di Tom, LA QUALE ha parlato ai giornalisti» (è chiaro che parla la moglie; con «che» potrebbe essere Tom). Come soggetto è tipico dello stile scritto, burocratico e giornalistico; nel parlato si usa «che». 5) RELATIVA RESTRITTIVA O ESPLICATIVA? Restrittiva (senza virgole): identifica di quale persona o cosa parliamo: «l'attore CHE ha recitato in Alien» (proprio quello, non un altro). Esplicativa o appositiva (tra virgole): aggiunge un'informazione su qualcuno già identificato: «Redford, CHE è morto l'anno scorso, diventò un amico per la vita». Nei necrologi e nei titoli di cronaca la relativa appositiva è fondamentale. Solo nell'appositiva si può usare «il quale» come soggetto (✘ «l'attore il quale ha recitato in Alien è morto» suona molto strano). 6) RELATIVI SENZA ANTECEDENTE: CHI = la persona che / le persone che (sempre singolare): «CHI lo conosceva parla della sua generosità». CIÒ CHE / QUELLO CHE = la cosa che: «Ciò che colpisce è la sua ironia». 7) IL CHE (livello C1): riprende un'intera frase, non un nome: «Lavorò con Redford e Coppola nello stesso film, IL CHE oggi sembra incredibile» (= e questo…). 8) NOTA PER CHI TRADUCE. Tre trappole dall'inglese: (a) la relativa senza pronome (\"the man I met\" → «l'uomo che ho incontrato»); (b) la preposizione in fondo alla frase (\"the actor I worked with\" → «l'attore con cui / con il quale ho lavorato»); (c) \"whose\": l'articolo di «il cui» guarda avanti (\"the actress whose daughter…\" → «l'attrice la cui figlia…»). E una trappola dentro l'italiano: nel parlato si sente il «che polivalente» («il giorno che ci siamo conosciuti», «la ragazza che le ho dato il libro»); il primo è accettato nell'uso, il secondo è substandard: nello scritto curato si dice «il giorno in cui», «la ragazza a cui ho dato il libro».", "examples": [["«Julia Roberts, che in Steel Magnolias interpretava sua figlia, ha pubblicato una foto»", " — «che» soggetto in una relativa appositiva, tra virgole (dall'articolo)"], ["«War Hunt, un film sulla guerra di Corea che segnò anche il debutto di Robert Redford»", " — «che» soggetto in una relativa restrittiva (dall'articolo)"], ["«l'amore che portava nelle nostre vite»", " — «che» oggetto diretto: portava l'amore (dall'articolo)"], ["«Redford, che è morto lo scorso anno, divenne un amico per la vita»", " — relativa appositiva: un'informazione in più su una persona già nota (dall'articolo)"], ["«un opportunista intrigante che ostacola il tentativo del personaggio di Jodie Foster»", " — «che» soggetto: definisce il ruolo (dall'articolo)"], ["«la serie per cui vinse l'Emmy» · «il film con cui debuttò»", " — preposizione + cui: la preposizione va sempre davanti"], ["«Skerritt, la cui carriera è durata sessant'anni…»", " — «il cui»: l'articolo si accorda con «carriera», non con Skerritt"], ["«la moglie di Tom, la quale ha parlato ai giornalisti»", " — «la quale» evita l'ambiguità: parla la moglie, non Tom"]], "snote": "Tre domande da farsi: (1) il relativo è soggetto o oggetto? → CHE; (2) c'è una preposizione? → PREPOSIZIONE + CUI (o + IL QUALE); (3) esprime possesso? → IL CUI, con l'articolo accordato alla cosa posseduta. Ricorda: in italiano il relativo non si omette mai e la preposizione non va mai in fondo alla frase."}], "comprehension": [{"label": "Comprensione", "h2": "Comprensione", "sub": "1–3: fatti dal servizio · 4–6: domande aperte", "compLabel": "📻 Fatti dal servizio (1–3)  ·  💭 Domande aperte (4–6)", "questions": [["1.", "Chi era Tom Skerritt?", "Era un attore americano, un veterano di Hollywood, famoso per i suoi ruoli nei film «Alien» e «Top Gun»."], ["2.", "Quanti anni aveva quando è morto, e per quale causa?", "Aveva 93 anni ed è morto per cause naturali."], ["3.", "Chi ha dato la notizia della sua morte?", "L'ha annunciata la sua famiglia."], ["4.", "Skerritt era spesso un attore «secondario», non il protagonista. Secondo te, perché i ruoli secondari sono importanti in un film?", "Secondo me sono importantissimi: sono i personaggi che rendono la storia credibile. Un buon caratterista dà forza anche al protagonista, e spesso è proprio lui che ricordiamo dopo il film."], ["5.", "La famiglia ricorda il suo senso dell'umorismo e la sua generosità, non i suoi film. Che cosa ne pensi?", "Mi sembra bellissimo: per la famiglia conta la persona, non la fama. Il pubblico ricorda i film, ma chi lo conosceva ricorda come trattava gli altri."], ["6.", "Quale attore o attrice, secondo te, merita di essere ricordato per sempre? Perché?", "Per me Marcello Mastroianni, che ha recitato in film indimenticabili come «La dolce vita». Era elegante, ironico e sapeva fare ruoli molto diversi."]]}], "gapfill": {"heading": "Completa le frasi in base al servizio!", "words": ["veterano", "ruoli", "anni", "naturali", "famiglia"], "sents": [{"pre": "1.  Tom Skerritt era un", "blank": "veterano", "post": "di Hollywood."}, {"pre": "2.  Era noto per i suoi", "blank": "ruoli", "post": "cult in «Alien» e «Top Gun»."}, {"pre": "3.  È morto a 93", "blank": "anni", "post": "."}, {"pre": "4.  È morto per cause", "blank": "naturali", "post": "."}, {"pre": "5.  La notizia l'ha annunciata la sua", "blank": "famiglia", "post": "."}], "answers": [["1.", "veterano", "qui = una persona con molta esperienza, non solo un ex soldato"], ["2.", "ruoli", "il ruolo → i ruoli"], ["3.", "anni", "«morire a 93 anni» = to die aged 93"], ["4.", "naturali", "naturale → naturali (plurale, con «cause»)"], ["5.", "famiglia", "«la sua famiglia»: con «famiglia» serve l'articolo"]]}, "verofalso": {"items": [{"s": "Tom Skerritt è morto a 93 anni.", "a": "V", "note": ""}, {"s": "Skerritt è morto in un incidente.", "a": "F", "note": "È morto per cause naturali."}, {"s": "La notizia della morte l'ha data la famiglia.", "a": "V", "note": ""}, {"s": "Skerritt era famoso soprattutto come regista.", "a": "F", "note": "Era un attore, noto per i ruoli in «Alien» e «Top Gun»."}, {"s": "Skerritt ha recitato in «Alien» e in «Top Gun».", "a": "V", "note": ""}, {"s": "Nel servizio si dice dove e quando sarà il funerale.", "a": "N", "note": "Il servizio non parla del funerale."}], "key_html": "<b>1.</b> Vero &nbsp; <b>2.</b> Falso (cause naturali) &nbsp; <b>3.</b> Vero &nbsp; <b>4.</b> Falso (era un attore) &nbsp; <b>5.</b> Vero &nbsp; <b>6.</b> Non detto"}, "discussion": [{"q": "Qual è il primo film che ricordi di aver visto al cinema? Con chi eri?", "m": "Il primo film che ricordo è «E.T.», che ho visto con mio padre quando avevo sette anni. Ricordo che alla fine piangevano tutti, anche gli adulti."}, {"q": "Secondo te, è giusto che i social diventino il luogo in cui salutiamo le persone famose che muoiono?", "m": "In parte sì: i social permettono a tante persone di dire grazie a un artista che amavano. Però a volte i messaggi sono un po' superficiali; preferisco un ricordo vero, come quello della famiglia di Skerritt."}, {"q": "Descrivi un attore o un'attrice che ammiri usando almeno tre frasi relative, per esempio: «È un attore che…», «il film in cui…», «un'attrice la cui voce…».", "m": "Ammiro molto Sophia Loren, che è diventata famosa in tutto il mondo. Il film in cui la preferisco è «La ciociara», per cui ha vinto l'Oscar. È un'attrice la cui forza si sente in ogni scena."}], "homework": [{"label": "Compiti — Scrittura", "bgCls": "red", "blockCls": "red-b", "h3color": "#E24E3E", "h3text": "✍ Un breve necrologio (80–100 parole)", "bodyHTML": "Scrivi un breve ricordo, nello stile di un giornale, di un attore, un'attrice o un artista che ammiri (può essere ancora vivo: immagina il testo come un ritratto). Racconta chi è, quali sono i suoi lavori più importanti e che persona è.<br><br>Usa almeno <b>quattro frasi relative diverse</b>: una con <i>«che»</i> (es. «un regista che ha cambiato il cinema»), una con <i>preposizione + «cui»</i> (es. «il film per cui ha vinto un premio»), una con <i>«il cui / la cui»</i> (es. «un'attrice la cui voce tutti riconoscono») e una <i>relativa appositiva tra virgole</i> (es. «Fellini, che era nato a Rimini, …»).<br><br>Usa anche almeno <b>cinque parole</b> della lezione (per esempio: <i>il ruolo, la carriera, il debutto, vincere un premio, il senso dell'umorismo</i>).", "chips": ["80–100 parole", "5 parole nuove", "4 frasi relative"]}], "grammar_practice": [{"title": "Completa con il relativo giusto", "instr": "Completa le frasi (alcune adattate dall'articolo) con: che, cui, preposizione + cui, il cui / la cui / i cui / le cui.", "items": ["1.  Julia Roberts, ___ in «Steel Magnolias» interpretava sua figlia, lo ha ricordato su Instagram.", "2.  «War Hunt» è il film ___ Skerritt debuttò nel 1962.", "3.  La famiglia parla dell'amore ___ Tom portava nelle loro vite.", "4.  «Picket Fences» è la serie ___ vinse l'Emmy nel 1993.", "5.  Skerritt è un attore ___ film tutti conoscono.", "6.  Redford era l'amico ___ Skerritt si sentiva più vicino.", "7.  Il capitano ___ interpretava in «Alien» non arriva alla fine del film.", "8.  La terza moglie, ___ nome è Julie Tokashiki, gli è stata vicina fino alla fine."], "answers": ["1.  che — soggetto, relativa appositiva tra virgole (dall'articolo)", "2.  con cui / in cui — debuttare con / in un film: la preposizione va davanti a «cui»", "3.  che — oggetto diretto: portava l'amore (dall'articolo)", "4.  per cui — vincere un premio per qualcosa", "5.  i cui — l'articolo si accorda con «film» (plurale), non con «attore»", "6.  a cui (al quale) — sentirsi vicino a qualcuno", "7.  che — oggetto diretto: interpretava il capitano", "8.  il cui — l'articolo si accorda con «nome» (maschile), non con «moglie»"]}, {"title": "Unisci le due frasi con un pronome relativo", "instr": "Trasforma le due frasi in una sola. La parola in MAIUSCOLO diventa l'antecedente. Scegli tu se usare «che», «preposizione + cui», «il cui» o «il quale».", "items": ["1.  Skerritt ha recitato in «Top Gun». «TOP GUN» è uscito nel 1986.", "2.  Ho visto un FILM. In questo film Skerritt fa lo sceriffo.", "3.  Ricordo un'ATTRICE. La sua voce era bellissima.", "4.  REDFORD è morto l'anno scorso. Redford era il suo migliore amico.", "5.  Questi sono i COLLEGHI. Skerritt ha lavorato con questi colleghi per anni.", "6.  La FAMIGLIA ha scritto una dichiarazione. Tutti hanno letto la dichiarazione.", "7.  È una CITTÀ. In questa città vivono molti attori."], "answers": ["1.  «Top Gun», in cui (nel quale) ha recitato Skerritt, è uscito nel 1986.", "2.  Ho visto un film in cui (nel quale) Skerritt fa lo sceriffo.", "3.  Ricordo un'attrice la cui voce era bellissima.", "4.  Redford, che era il suo migliore amico, è morto l'anno scorso. (relativa appositiva tra virgole)", "5.  Questi sono i colleghi con cui (con i quali) Skerritt ha lavorato per anni.", "6.  La famiglia ha scritto una dichiarazione che tutti hanno letto. («che» oggetto)", "7.  È una città in cui (nella quale / dove) vivono molti attori."]}, {"title": "Scegli la forma giusta", "instr": "Scegli la forma corretta e spiega brevemente perché. Attenzione alle trappole dall'inglese.", "items": ["1.  È l'attore (che / cui) ho visto ieri in TV.", "2.  Il regista (con cui / che con) ha lavorato era giovane.", "3.  Un'attrice (il cui / la cui) figlio fa il regista.", "4.  (Chi / Che) lo conosceva parla della sua gentilezza.", "5.  Ha recitato con Redford e Coppola nello stesso film, (che / il che) oggi sembra incredibile.", "6.  Ho parlato con la sorella di Marco, (che / la quale) vive a Roma. (Vive a Roma la sorella.)"], "answers": ["1.  che — oggetto diretto senza preposizione (non «cui»)", "2.  con cui — la preposizione va davanti a «cui» (inglese \"the director he worked with\")", "3.  il cui — l'articolo si accorda con «figlio», la cosa posseduta", "4.  Chi — relativo senza antecedente = «la persona che»", "5.  il che — riprende tutta la frase precedente, non un nome", "6.  la quale — il femminile chiarisce che vive a Roma la sorella, non Marco"]}]};
+</script>
+<script>
+/* ════════════════════════════════════════════════════════════════
+   GOODMAN ITALIANO B1 — HTML SLIDE ENGINE
+   Renders an Italian B1 lesson from a single SPEC object.
+   Forked from the Goodman Ungherese B1 engine; Italian UI strings,
+   English glosses, it-IT speech recognition.
+   ════════════════════════════════════════════════════════════════ */
+
+const UI = {
+  brandLang: ' · Italiano B1',
+  brandLine: 'Goodman · Italiano B1',
+  sectionKicker: 'SEZIONE',
+  chips: [['LIVELLO','level'],['DATA','date'],['DURATA','time']],
+  warmupLabel: 'Riscaldamento — Domande', warmupH2: 'Riscaldamento',
+  warmupSub: 'Prima di guardare il video, parla di queste domande!',
+  warmupBox: '🗣 Parliamone!',
+  vocabH2: 'Parole chiave', vocabSub: 'Clicca sulla carta! · italiano → inglese + esempio dal video',
+  flipHint: '👆 Clicca per la traduzione!',
+  videoLabel: 'Guarda il video — parte ', videoPart: '', videoOf: ' / ',
+  videoSubRange: 'Segmento: ', videoSubDefault: 'Guarda questa parte, poi vai avanti!',
+  videoOpen: '▶ Apri il video su YouTube', videoOpenNote: 'Se il video non parte qui, aprilo da questo link!',
+  videoSummary: 'Riassunto · livello B1',
+  readLabel: 'Lettura', readH2: 'Lettura — l\'articolo in breve',
+  readSub: 'Testo semplificato al livello B1 · l\'articolo originale è sul sito di Euronews',
+  readLink: 'Apri l\'articolo originale ↗',
+  compAnswer: 'Risposta modello', compHint: '👆 Clicca per la risposta modello!',
+  gapLabel: 'Esercizio 1 — Parole mancanti', gapH2: 'Esercizio 1 — Parole mancanti',
+  gapSub: 'Scegli una parola dalla lista, poi clicca sullo spazio vuoto nella frase!',
+  gapInstr: '① Clicca su una parola della lista — si evidenzia.  ② Clicca sullo spazio tratteggiato nella frase!  ③ Alla fine premi il pulsante Verifica!',
+  gapHeading: 'Completa le frasi in base al video!',
+  check: '✓ Verifica', reset: '↺ Ricomincia',
+  gapAkLabel: 'Esercizio 1 — Soluzioni', gapAkH2: 'Soluzioni — Parole mancanti', gapAkSub: 'Chiave completa con il contesto originale',
+  word: 'Parola',
+  matchLabel: 'Esercizio — Abbinamento', matchH2: 'Abbinamento',
+  matchSub: 'Clicca su una parola a sinistra, poi sul suo significato a destra!',
+  matchInstr: '① Clicca su una parola (colonna sinistra) — si evidenzia.  ② Clicca sul significato corrispondente! Le coppie giuste diventano verdi.',
+  matchHeading: 'Abbina la parola al suo significato!', matchTerm: 'Parola', matchDef: 'Significato', showAnswers: 'Mostra le soluzioni',
+  vfLabel: 'Esercizio 2 — Vero/Falso', vfH2: 'Esercizio 2 — Vero / Falso / Non detto',
+  vfSub: 'Quale affermazione è vera, falsa o non viene detta nel video?',
+  vfInstr: 'Clicca sul pulsante giusto per ogni affermazione! Se l\'affermazione è falsa, appare la correzione.',
+  vfHeading: 'In base al video decidi: V · F · ND!', vfAll: 'Mostra tutte le soluzioni',
+  vfBtns: [['V','V'],['F','F'],['N','ND']],
+  discLabel: 'Conversazione', discH2: 'Conversazione — di\' la tua opinione!',
+  discSub: 'R = microfono on/off  ·  usa i pulsanti in basso per passare da una domanda all\'altra',
+  speechWarn: '⚠ Il riconoscimento vocale funziona solo in Google Chrome.',
+  question: 'domanda', ofN: ' / ',
+  yourAnswer: '🎤 La tua risposta', modelAnswer: '📖 Risposta modello', reveal: 'Mostra la risposta modello!',
+  micPh: 'Clicca sul microfono e parla in italiano!',
+  micStart: 'Premi il tasto R oppure clicca sul microfono! Se il browser chiede il permesso, scegli «Consenti a ogni visita» — così lo dai una volta sola.',
+  micReady: '🎙 Il microfono è pronto — premi R oppure clicca per registrare!',
+  micRec: 'Registrazione in corso… R = stop', micPause: 'Registrazione in pausa. Premi R oppure clicca sul microfono per continuare!',
+  prev: '← Precedente', next: 'Successiva →', nextSlide: 'Avanti alla sezione successiva →',
+  hwSub: 'Da fare prima della prossima lezione',
+  tsize: 'Dimensione testo'
+};
+
+// ── Data shortcuts ───────────────────────────────────────────────
+const VOCAB     = SPEC.vocab || [];
+const GAP_WORDS = (SPEC.gapfill && SPEC.gapfill.words) || [];
+const GAP_SENTS = (SPEC.gapfill && SPEC.gapfill.sents) || [];
+const MATCH     = (SPEC.match && SPEC.match.items) || [];
+const VF        = (SPEC.verofalso && SPEC.verofalso.items) || [];
+const DISC      = SPEC.discussion || [];
+
+const vp = document.getElementById('viewport');
+const SLIDES = [];
+
+function makeSlide(label, cls) {
+  const div = document.createElement('div');
+  div.className = 'slide ' + cls;
+  vp.appendChild(div);
+  SLIDES.push({ label, el: div });
+  if (cls !== 'title-slide' && cls !== 'sep-slide') {
+    const bs = document.createElement('div'); bs.className = 'brand-strip';
+    const n = document.createElement('span'); n.className = 'bs-name'; n.textContent = 'Goodman';
+    const l = document.createElement('span'); l.className = 'bs-lang'; l.textContent = UI.brandLang;
+    bs.appendChild(n); bs.appendChild(l); div.appendChild(bs);
+  }
+  return div;
+}
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+function ap(parent, ...children) { children.forEach(c => parent.appendChild(c)); return parent; }
+
+// ── Slide factories ──────────────────────────────────────────────
+function makeTitle(t) {
+  const L = SPEC.lesson || {};
+  const s = makeSlide(t.label || 'Titolo', 'title-slide');
+  const brand = el('div','ts-brand');
+  ap(brand, el('span','ts-brand-name','Goodman'), el('span','ts-brand-lang', UI.brandLang));
+  const kicker = el('div','ts-kicker', (L.series || t.pod_label || '').trim().toUpperCase());
+  const h1 = el('div','ts-title', t.h1 || L.title);
+  const chips = el('div','ts-chips');
+  UI.chips.forEach(([k,key]) => {
+    const v = L[key]; if (!v) return;
+    const c = el('div','ts-chip'); ap(c, el('span','ts-chip-k', k), el('span','ts-chip-v', v)); chips.appendChild(c);
+  });
+  ap(s, brand, kicker, h1, chips);
+}
+
+let _divSeq = 0;
+function makeDivider(d) {
+  _divSeq++;
+  const s = makeSlide(d.label || (d.title + ' →'), 'sep-slide');
+  ap(s, el('div','sep-kicker', UI.sectionKicker), el('div','sep-number', String(_divSeq).padStart(2,'0')),
+        el('h2','sep-title', d.title), el('div','sep-sub', d.desc));
+  const tagWrap = el('div','sep-tags');
+  (d.tags || []).forEach(t => ap(tagWrap, el('span','sep-tag', t)));
+  ap(s, tagWrap, el('div','sep-brand', UI.brandLine));
+}
+
+function makeQuestionsSlide(label, h2, sub, boxTitle, questions) {
+  const s = makeSlide(label, 'con-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', h2), el('div','sub', sub));
+  const box = el('div','single-box'); ap(box, el('h3','', boxTitle));
+  const ol = document.createElement('ol'); questions.forEach(q => ol.appendChild(el('li','', q)));
+  ap(box, ol); ap(s, head, box);
+}
+function makeProseSlide(label, h2, sub, body) {
+  const s = makeSlide(label, 'con-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', h2), el('div','sub', sub));
+  const box = el('div','single-box'); ap(box, el('p','', body));
+  ap(s, head, box);
+}
+function makeFiguresSlide(fig) {
+  const s = makeSlide(fig.label || 'Numeri e nomi', 'figures-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', fig.h2), el('div','sub', fig.sub));
+  const grid = el('div','figures-grid');
+  (fig.items || []).forEach(([name, desc]) => { const card = el('div','figure-card'); ap(card, el('div','fname', name), el('div','fdesc', desc)); grid.appendChild(card); });
+  ap(s, head, grid);
+}
+
+// vocab: groups per slide, flip cards (front HU term + register, back IT + example)
+function makeVocabSlide(label, groups) {
+  const s = makeSlide(label, 'vocab-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.vocabH2), el('div','sub', UI.vocabSub)); ap(s, head);
+  groups.forEach(group => {
+    const lbl = el('div','vocab-group-label', group.group);
+    const grid = el('div','vocab-grid');
+    (group.items || []).forEach(item => {
+      const card = el('div','vcard'); const inner = el('div','vcard-inner');
+      const front = el('div','vfront'); const term = el('div','term', item.it);
+      const vbot = el('div','vbottom'); const rtag = el('span','rtag', (item.reg || '').split(',')[0].trim());
+      ap(vbot, rtag, el('div','hint', UI.flipHint)); ap(front, term, vbot);
+      const back = el('div','vback');
+      ap(back, el('div','en', item.en), el('div','ex', '„' + item.ex + '”'), el('div','rnote','📝 ' + (item.reg || '')));
+      ap(inner, front, back); ap(card, inner);
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      grid.appendChild(card);
+    });
+    ap(s, lbl, grid);
+  });
+}
+
+function ytId(v) { if (!v) return ''; const m = String(v).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/); return m ? m[1] : String(v); }
+
+function makeVideoPartSlide(part, i, total, vid) {
+  const lbl = UI.videoLabel + (i + 1) + UI.videoPart;
+  const s = makeSlide(lbl, 'video-slide');
+  const head = el('div','slide-head');
+  ap(head, el('h2','', lbl + (total > 1 ? '  (' + (i + 1) + UI.videoOf + total + ')' : '')),
+           el('div','sub', part.range ? (UI.videoSubRange + part.range) : UI.videoSubDefault));
+  const frame = el('div','video-frame'); const ifr = document.createElement('iframe');
+  let q = 'rel=0&modestbranding=1&cc_load_policy=1&cc_lang_pref=it&hl=it';
+  if (part.start != null) q += '&start=' + part.start;
+  if (part.end   != null) q += '&end='   + part.end;
+  ifr.src = 'https://www.youtube-nocookie.com/embed/' + vid + '?' + q;
+  ifr.setAttribute('allow', 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen');
+  ifr.setAttribute('allowfullscreen', ''); ifr.setAttribute('loading', 'lazy'); ifr.title = 'Video — parte ' + (i + 1);
+  frame.appendChild(ifr);
+  const linkRow = el('div','video-linkrow');
+  let hrefT = 'https://www.youtube.com/watch?v=' + vid; if (part.start) hrefT += '&t=' + part.start + 's';
+  const a = el('a','video-link', UI.videoOpen); a.href = hrefT; a.target = '_blank'; a.rel = 'noopener';
+  ap(linkRow, a, el('span','video-linknote', UI.videoOpenNote));
+  const sum = el('div','video-summary'); ap(sum, el('div','vs-label', UI.videoSummary), el('p','', part.summary || ''));
+  ap(s, head, frame, linkRow, sum);
+}
+
+function makeReadingSlide(r) {
+  const s = makeSlide(UI.readLabel, 'read-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', r.h2 || UI.readH2), el('div','sub', r.sub || UI.readSub));
+  const box = el('div','read-box');
+  if (r.title) box.appendChild(el('h3','', r.title));
+  if (r.lead) box.appendChild(el('p','read-lead', r.lead));
+  (r.paragraphs || []).forEach(p => box.appendChild(el('p','', p)));
+  if (r.url) { const a = el('a','read-link', UI.readLink); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; box.appendChild(a); }
+  ap(s, head, box);
+}
+
+function makeGramSlide(g) {
+  const s = makeSlide(g.label, 'gram-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', g.label), el('div','sub', g.subtitle));
+  const block = el('div','gram-block'); const ul = document.createElement('ul');
+  (g.examples || []).forEach(([strong, rest]) => { const li = document.createElement('li'); const st = document.createElement('strong'); st.textContent = strong; li.appendChild(st); li.appendChild(document.createTextNode(rest)); ul.appendChild(li); });
+  ap(block, el('h3','', g.title), el('div','expl', g.expl), ul, el('div','snote', g.snote));
+  ap(s, head, block);
+}
+
+function makeCompSlide(c) {
+  const s = makeSlide(c.label, 'comp-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', c.h2), el('div','sub', c.sub));
+  const lbl = el('div','comp-label', c.compLabel);
+  const hasAns = (c.questions || []).some(q => q[2]);
+  const list = el('div', hasAns ? 'comp-grid' : 'qlist');
+  (c.questions || []).forEach(([num, q, ans]) => {
+    if (ans) {
+      const card = el('div','ccard'); const inner = el('div','ccard-inner');
+      const front = el('div','cface cfront'); ap(front, el('span','cnum', num), el('div','cq', q), el('div','chint', UI.compHint));
+      const back = el('div','cface cback'); ap(back, el('div','ca-label', UI.compAnswer), el('div','ca', ans));
+      ap(inner, front, back); ap(card, inner); card.addEventListener('click', () => card.classList.toggle('flipped')); list.appendChild(card);
+    } else { const item = el('div','qitem'); ap(item, el('span','qnum', num), el('span','', q)); list.appendChild(item); }
+  });
+  ap(s, head, lbl, list);
+}
+
+function makeGapSlide(gf) {
+  const s = makeSlide(UI.gapLabel, 'ex-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.gapH2), el('div','sub', UI.gapSub));
+  const block = el('div','ex-block');
+  const instr = el('div','ex-instr', gf.instr || UI.gapInstr);
+  const wb = el('div','word-bank'); wb.id = 'wb'; const gs = el('div','gap-sentences'); gs.id = 'gap-sents';
+  const btns = el('div','ex-btns');
+  const vBtn = el('button','ak-btn', UI.check); vBtn.onclick = checkGap;
+  const rBtn = el('button','ak-btn grey', UI.reset); rBtn.onclick = resetGap;
+  ap(btns, vBtn, rBtn); ap(block, el('h3','', gf.heading || UI.gapHeading), instr, wb, gs, btns); ap(s, head, block);
+}
+function makeGapAnswerSlide(gf) {
+  const s = makeSlide(UI.gapAkLabel, 'ak-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.gapAkH2), el('div','sub', UI.gapAkSub));
+  const content = el('div','ak-content');
+  (gf.answers || []).forEach(([num, word, quote]) => {
+    const item = el('div','ak-item'); const body = document.createElement('div');
+    body.innerHTML = UI.word + ': <span class="ak-word">' + word + '</span> &nbsp;—&nbsp; <span class="ak-quote">' + quote + '</span>';
+    ap(item, el('span','ak-num', num), body); content.appendChild(item);
+  });
+  ap(s, head, content);
+}
+function makeMatchSlide(m) {
+  const s = makeSlide(UI.matchLabel, 'ex-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.matchH2), el('div','sub', UI.matchSub));
+  const block = el('div','ex-block'); const instr = el('div','ex-instr', UI.matchInstr);
+  const wrap = el('div','match-wrap'); const grid = el('div','match-grid');
+  const leftCol = document.createElement('div'); const rightCol = document.createElement('div');
+  ap(leftCol, el('div','match-col-label', UI.matchTerm)); ap(rightCol, el('div','match-col-label', UI.matchDef));
+  leftCol.id = 'mterms'; rightCol.id = 'mdefs'; ap(grid, leftCol, rightCol);
+  const akBtn = el('button','ak-btn', UI.showAnswers); akBtn.onclick = () => toggleAK('mkey');
+  const ak = el('div','answer-key'); ak.id = 'mkey'; ak.innerHTML = m.key_html || '';
+  ap(wrap, grid, akBtn, ak); ap(block, el('h3','', UI.matchHeading), instr, wrap); ap(s, head, block);
+}
+function makeVFSlide(vfo) {
+  const s = makeSlide(UI.vfLabel, 'ex-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.vfH2), el('div','sub', UI.vfSub));
+  const block = el('div','ex-block'); const instr = el('div','ex-instr', UI.vfInstr);
+  const list = el('div','vf-list'); list.id = 'vf-root';
+  const akBtn = el('button','ak-btn', UI.vfAll); akBtn.onclick = () => toggleAK('vfkey');
+  const ak = el('div','answer-key'); ak.id = 'vfkey'; ak.innerHTML = vfo.key_html || '';
+  ap(block, el('h3','', UI.vfHeading), instr, list, akBtn, ak); ap(s, head, block);
+}
+
+function makeDiscSlide() {
+  const s = makeSlide(UI.discLabel, 'disc-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.discH2), el('div','sub', UI.discSub));
+  const warn = el('div','speech-warn', UI.speechWarn); warn.id = 'swarn';
+  const card = el('div','disc-card'); const topbar = el('div','disc-topbar');
+  const dots = el('div','disc-dots'); dots.id = 'ddots';
+  const qnum = el('div','disc-qnum', '1. ' + UI.question + UI.ofN + DISC.length); qnum.id = 'dqnum';
+  ap(topbar, dots, qnum);
+  const dq = el('div','disc-q',''); dq.id = 'dq';
+  const cols = el('div','disc-cols'); const col1 = el('div','disc-col');
+  const ubox = el('div','disc-user-box'); ubox.id = 'dubox'; ubox.appendChild(el('span','ph', UI.micPh));
+  ap(col1, el('div','disc-col-label', UI.yourAnswer), ubox);
+  const col2 = el('div','disc-col'); const mbox = el('div','disc-model-box blur'); mbox.id = 'dmbox';
+  const mtext = el('div','mtext',''); mtext.id = 'dmtext'; mbox.appendChild(mtext);
+  const revBtn = el('button','reveal-btn', UI.reveal); revBtn.onclick = revealModel;
+  ap(col2, el('div','disc-col-label', UI.modelAnswer), mbox, revBtn); ap(cols, col1, col2);
+  const microw = el('div','mic-row'); const micbtn = el('button','mic-btn','🎤'); micbtn.id = 'micbtn'; micbtn.onclick = toggleMic;
+  const micstat = el('div','mic-status', UI.micStart); micstat.id = 'micstat'; ap(microw, micbtn, micstat);
+  const nav = el('div','disc-nav');
+  const prevBtn = el('button','disc-nav-btn', UI.prev); prevBtn.id = 'dprev'; prevBtn.onclick = () => dNav(-1);
+  const nextBtn = el('button','disc-nav-btn', UI.next); nextBtn.id = 'dnext'; nextBtn.onclick = () => { if (dIdx >= DISC.length - 1) go(1); else dNav(1); };
+  ap(nav, prevBtn, nextBtn); ap(card, topbar, dq, cols, microw, nav); ap(s, head, warn, card);
+}
+
+function makeHWSlide(h) {
+  const s = makeSlide(h.label, 'hw-slide ' + (h.bgCls || ''));
+  const head = el('div','slide-head'); ap(head, el('h2','', h.label), el('div','sub', UI.hwSub));
+  const block = el('div','hw-block ' + (h.blockCls || ''));
+  const h3 = el('h3','', h.h3text); if (h.h3color) h3.style.color = h.h3color;
+  const body = document.createElement('div'); body.innerHTML = h.bodyHTML; body.style.cssText = 'font-size:1.6vw;line-height:1.9;flex:1';
+  ap(block, h3, body);
+  if (h.chips && h.chips.length) { const row = el('div','chip-row'); h.chips.forEach(t => row.appendChild(el('span','chip', t))); block.appendChild(row); }
+  ap(s, head, block);
+}
+
+// ── BUILD (B1 shape: warm-up → vocab → video → reading → grammar → comprehension → exercises → discussion → homework)
+function build() {
+  const D = SPEC.dividers || {};
+  makeTitle(SPEC.title_slide || {});
+
+  makeDivider(D.warmup);
+  makeQuestionsSlide(UI.warmupLabel, UI.warmupH2, UI.warmupSub, UI.warmupBox, SPEC.warmup.questions);
+  if (SPEC.warmup.episode) makeProseSlide('Riscaldamento — Di cosa parla?', SPEC.warmup.episode.h2, SPEC.warmup.episode.sub, SPEC.warmup.episode.body);
+  if (SPEC.figures) makeFiguresSlide(SPEC.figures);
+
+  makeDivider(D.vocab);
+  const per = 2; // rule: 8 cards per slide (2 groups × 4)
+  for (let i = 0; i < VOCAB.length; i += per) {
+    makeVocabSlide('Parole chiave — ' + (Math.floor(i/per) + 1) + '/' + Math.ceil(VOCAB.length/per), VOCAB.slice(i, i + per));
+  }
+
+  if (SPEC.video && SPEC.video.parts && SPEC.video.parts.length) {
+    makeDivider(D.video);
+    const vid = ytId(SPEC.video.url || SPEC.video.video_id);
+    SPEC.video.parts.forEach((p, i) => makeVideoPartSlide(p, i, SPEC.video.parts.length, vid));
+  }
+
+  if (SPEC.reading) { makeDivider(D.reading); makeReadingSlide(SPEC.reading); }
+
+  if (SPEC.grammar && SPEC.grammar.length) { makeDivider(D.grammar); SPEC.grammar.forEach(makeGramSlide); }
+
+  makeDivider(D.comprehension);
+  (SPEC.comprehension || []).forEach(makeCompSlide);
+
+  makeDivider(D.exercises);
+  if (SPEC.gapfill) { makeGapSlide(SPEC.gapfill); makeGapAnswerSlide(SPEC.gapfill); }
+  if (SPEC.match) makeMatchSlide(SPEC.match);
+  if (SPEC.verofalso) makeVFSlide(SPEC.verofalso);
+
+  makeDivider(D.discussion);
+  makeDiscSlide();
+
+  if (SPEC.homework && SPEC.homework.length) { makeDivider(D.homework); SPEC.homework.forEach(makeHWSlide); }
+}
+build();
+
+// ── NAVIGATION ───────────────────────────────────────────────────
+const TOTAL = SLIDES.length; let cur = 0;
+SLIDES[0].el.classList.add('active');
+const DISC_IDX = SLIDES.findIndex(s => s.el.classList.contains('disc-slide'));
+function go(d) {
+  SLIDES[cur].el.classList.remove('active');
+  cur = Math.max(0, Math.min(TOTAL - 1, cur + d));
+  SLIDES[cur].el.classList.add('active'); SLIDES[cur].el.scrollTop = 0; updateNav();
+  if (cur === DISC_IDX) initMicPermission();
+}
+function updateNav() {
+  document.getElementById('slide-label').textContent = (cur+1) + ' / ' + TOTAL + ' — ' + SLIDES[cur].label;
+  document.getElementById('pb').style.width = ((cur+1)/TOTAL*100) + '%';
+  document.getElementById('btn-prev').disabled = cur === 0;
+  document.getElementById('btn-next').disabled = cur === TOTAL-1;
+}
+updateNav();
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+  if ((e.key==='r'||e.key==='R') && cur===DISC_IDX) toggleMic();
+});
+
+// ── GAP FILL ─────────────────────────────────────────────────────
+let selWord = null;
+function wireGap() {
+  const wb = document.getElementById('wb'); const gs = document.getElementById('gap-sents'); if (!wb || !gs) return;
+  [...GAP_WORDS].sort(()=>Math.random()-0.5).forEach(w => {
+    const d = el('div','dword', w); d.dataset.w = w;
+    d.onclick = () => { if (d.classList.contains('used')) return; document.querySelectorAll('.dword').forEach(x=>x.classList.remove('sel-w')); d.classList.add('sel-w'); selWord = w; };
+    wb.appendChild(d);
+  });
+  GAP_SENTS.forEach(s => { const d = el('div','gap-sentence'); d.innerHTML = s.pre + ' <span class="drop-zone" data-blank="'+s.blank+'" onclick="fillZone(this)">_ _ _ _ _</span> ' + s.post; gs.appendChild(d); });
+}
+function fillZone(z) {
+  if (!selWord || z.classList.contains('ok')) return;
+  document.querySelectorAll('.drop-zone').forEach(oz=>{ if(oz!==z && oz.dataset.filled===selWord){oz.textContent='_ _ _ _ _';oz.classList.remove('filled','ok','wrong');oz.dataset.filled='';} });
+  z.textContent = selWord; z.classList.add('filled'); z.dataset.filled = selWord;
+  document.querySelectorAll('.dword').forEach(d=>d.classList.remove('sel-w')); selWord = null;
+}
+function checkGap() { document.querySelectorAll('.drop-zone').forEach(z=>{ z.classList.remove('ok','wrong'); if(z.dataset.filled===z.dataset.blank) z.classList.add('ok'); else if(z.dataset.filled) z.classList.add('wrong'); }); }
+function resetGap() { document.querySelectorAll('.drop-zone').forEach(z=>{z.textContent='_ _ _ _ _';z.classList.remove('filled','ok','wrong');z.dataset.filled='';}); document.querySelectorAll('.dword').forEach(d=>d.classList.remove('used','sel-w')); selWord = null; }
+
+// ── MATCHING ─────────────────────────────────────────────────────
+let selTerm = null;
+function wireMatch() {
+  const tc = document.getElementById('mterms'), dc = document.getElementById('mdefs'); if (!tc || !dc) return;
+  const shuffled = [...MATCH].sort(()=>Math.random()-0.5);
+  MATCH.forEach((m,i)=>{ const e2 = el('div','mitem', m.t); e2.dataset.pair = i; e2.dataset.side='t';
+    e2.onclick = () => { if (e2.classList.contains('matched')) return; document.querySelectorAll('.mitem[data-side="t"]').forEach(x=>x.classList.remove('sel')); e2.classList.add('sel'); selTerm = e2; };
+    tc.appendChild(e2); });
+  shuffled.forEach(m=>{ const oi = MATCH.findIndex(x=>x.d===m.d); const e2 = el('div','mitem', m.d); e2.dataset.pair = oi; e2.dataset.side='d';
+    e2.onclick = () => { if (!selTerm || e2.classList.contains('matched')) return;
+      if (selTerm.dataset.pair === e2.dataset.pair) { selTerm.classList.remove('sel'); selTerm.classList.add('matched'); e2.classList.add('matched'); selTerm = null; }
+      else { e2.classList.add('bad'); setTimeout(()=>e2.classList.remove('bad'),500); const st = selTerm; selTerm = null; st.classList.add('bad'); setTimeout(()=>st.classList.remove('bad','sel'),500); } };
+    dc.appendChild(e2); });
+}
+
+// ── VERO / FALSO / NON DETTO ──────────────────────────────────
+function wireVF() {
+  const root = document.getElementById('vf-root'); if (!root) return;
+  VF.forEach((item,i)=>{
+    const row = el('div','vf-row'); const btns = el('div','vf-btns');
+    UI.vfBtns.forEach(([cls,val])=>{ const b = el('button','vfb '+cls, val); b.onclick = () => checkVF(b, cls, item.a, i); btns.appendChild(b); });
+    const body = document.createElement('div'); body.style.flex='1';
+    body.appendChild(el('div','', String(i+1)+'. '+item.s));
+    if (item.note) { const n = el('div','vf-note','→ '+item.note); n.id='vfn'+i; body.appendChild(n); }
+    ap(row, btns, body); root.appendChild(row);
+  });
+}
+function checkVF(btn, chosen, correct, idx) {
+  btn.closest('.vf-row').querySelectorAll('.vfb').forEach(b=>b.classList.remove('correct','incorrect'));
+  if (chosen===correct) btn.classList.add('correct');
+  else { btn.classList.add('incorrect'); const n=document.getElementById('vfn'+idx); if(n) n.classList.add('show'); }
+}
+
+// ── DISCUSSION + MIC ─────────────────────────────────────────────
+let dIdx=0, recog=null, recording=false, micOK=false, micStream=null;
+function wireDisc() {
+  const dots = document.getElementById('ddots'); if (!dots) return;
+  DISC.forEach((_,i)=>{ const d = el('div','disc-dot'+(i===0?' active':'')); d.onclick = () => gotoDisc(i); dots.appendChild(d); });
+  loadDisc();
+}
+function loadDisc() {
+  const dq = document.getElementById('dq'); if (!dq) return;
+  dq.textContent = DISC[dIdx].q;
+  document.getElementById('dqnum').textContent = (dIdx+1) + '. ' + UI.question + UI.ofN + DISC.length;
+  document.getElementById('dmtext').textContent = DISC[dIdx].m;
+  document.getElementById('dmbox').classList.add('blur');
+  if (!recording) { const ub = document.getElementById('dubox'); ub.innerHTML=''; ub.appendChild(el('span','ph', UI.micPh)); ub.classList.remove('listening'); }
+  document.querySelectorAll('.disc-dot').forEach((d,i)=>d.classList.toggle('active', i===dIdx));
+  const pb = document.getElementById('dprev'), nb = document.getElementById('dnext');
+  if (pb) pb.disabled = dIdx === 0;
+  if (nb) { const last = dIdx >= DISC.length - 1; nb.textContent = last ? UI.nextSlide : UI.next; nb.classList.toggle('to-slide', last); }
+}
+function dNav(d) { document.querySelectorAll('.disc-dot')[dIdx].classList.add('done'); dIdx = Math.max(0, Math.min(DISC.length-1, dIdx+d)); loadDisc(); }
+function gotoDisc(i){ dIdx=i; loadDisc(); }
+function revealModel(){ document.getElementById('dmbox').classList.toggle('blur'); }
+function initMicPermission() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { const w=document.getElementById('swarn'); if(w) w.style.display='block'; return; }
+  if (micOK && micStream && micStream.active) return;
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => { micStream = stream; micOK = true; const st = document.getElementById('micstat'); if (st) st.textContent = UI.micReady; })
+      .catch(e => { if (e && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) { const w=document.getElementById('swarn'); if(w) w.style.display='block'; } });
+  }
+}
+function toggleMic(){ recording ? stopMic() : startMic(); }
+function startMic() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if (!SR) return;
+  recog = new SR(); recog.lang='it-IT'; recog.continuous=true; recog.interimResults=true;
+  const box = document.getElementById('dubox'); box.innerHTML=''; box.classList.add('listening');
+  let final='';
+  recog.onresult = e => { let interim=''; for (let i=e.resultIndex; i<e.results.length; i++) { if (e.results[i].isFinal) final += e.results[i][0].transcript + ' '; else interim += e.results[i][0].transcript; } box.textContent = final + interim; micOK = true; };
+  recog.onerror = e => { if (e.error!=='no-speech') stopMic(); };
+  recog.onend = () => { if (recording) recog.start(); };
+  recog.start(); recording = true;
+  document.getElementById('micbtn').classList.add('on'); document.getElementById('micbtn').textContent = '⏹';
+  document.getElementById('micstat').textContent = UI.micRec;
+}
+function stopMic() {
+  if (recog) { recog.stop(); recog=null; } recording=false;
+  document.getElementById('micbtn').classList.remove('on'); document.getElementById('micbtn').textContent = '🎤';
+  document.getElementById('micstat').textContent = UI.micPause; document.getElementById('dubox').classList.remove('listening');
+}
+function toggleAK(id){ document.getElementById(id).classList.toggle('show'); }
+
+wireGap(); wireMatch(); wireVF(); wireDisc();
+
+// ── Text-size control ────────────────────────────────────────────
+(function(){
+  let z = 100;
+  const bar = document.createElement('div'); bar.id='tsize';
+  bar.innerHTML = '<span>' + UI.tsize + '</span><button id="tsm">A−</button><span id="tsv">100%</span><button id="tsp">A+</button><button id="tsr">⟲</button>';
+  const _tb=document.getElementById('topbar'), _nb=document.getElementById('nav-btns');
+  if(_tb && _nb) _tb.insertBefore(bar, _nb); else document.body.appendChild(bar);
+  function apply(){ document.getElementById('viewport').style.zoom = (z/100); document.getElementById('tsv').textContent = z+'%'; }
+  document.getElementById('tsm').onclick = ()=>{ z=Math.max(70,z-10); apply(); };
+  document.getElementById('tsp').onclick = ()=>{ z=Math.min(220,z+10); apply(); };
+  document.getElementById('tsr').onclick = ()=>{ z=100; apply(); };
+})();
+</script>
+</body>
+</html>

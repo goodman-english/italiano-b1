@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-metanolo danese: carburante verde per navi e plastica — Goodman Italiano B1</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: Calibri, 'Segoe UI', sans-serif;
+  background: #0e8388;
+  color: #1e2a2e;
+}
+
+/* ── TOP BAR ── */
+#pb-wrap { position: fixed; top: 0; left: 0; right: 0; height: 5px; background: rgba(255,255,255,0.2); z-index: 200; }
+#pb { height: 5px; background: #fb6a5a; transition: width 0.3s; width: 0%; }
+
+#topbar {
+  position: fixed; top: 5px; left: 0; right: 0; height: 50px;
+  background: #0e8388; z-index: 199;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2vw;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+#slide-label { color: white; font-size: 1.5vw; font-weight: 700; }
+#nav-btns { display: flex; gap: 1vw; }
+.nbtn {
+  background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3);
+  color: white; padding: 0.4vh 1.5vw; border-radius: 5px;
+  cursor: pointer; font-size: 1.3vw; font-family: inherit; font-weight: 600;
+}
+.nbtn:hover { background: rgba(255,255,255,0.28); }
+.nbtn:disabled { opacity: 0.3; cursor: default; }
+
+/* ── VIEWPORT ── */
+#viewport {
+  position: fixed;
+  top: 55px; left: 0; right: 0; bottom: 0;
+}
+
+/* ── SLIDES ── */
+.slide {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease;
+  overflow: hidden;
+}
+.slide.active { opacity: 1; pointer-events: all; }
+
+/* ════════════════════════════════
+   DIVIDER SLIDES
+════════════════════════════════ */
+.div-slide {
+  background: linear-gradient(160deg, #073c40 0%, #0e8388 60%, #0a5458 100%);
+  color: white;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 3vh 6vw;
+  position: relative;
+}
+.div-slide::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 0.8vh; background: #fb6a5a;
+}
+.div-icon { font-size: 7vw; line-height: 1; margin-bottom: 2vh; }
+.div-num { font-size: 1.2vw; letter-spacing: 0.4vw; text-transform: uppercase; opacity: 0.5; margin-bottom: 1.5vh; font-weight: 700; }
+.div-slide h2 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 5.5vw; line-height: 1.1; margin-bottom: 2.5vh; }
+.div-desc { font-size: 1.7vw; opacity: 0.78; max-width: 70vw; line-height: 1.6; margin-bottom: 3.5vh; }
+.div-tags { display: flex; flex-wrap: wrap; gap: 1vw; justify-content: center; max-width: 75vw; }
+.div-tag {
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 3vw; padding: 0.8vh 2vw; font-size: 1.3vw;
+}
+
+/* ════════════════════════════════
+   TITLE SLIDE
+════════════════════════════════ */
+.title-slide {
+  background: linear-gradient(150deg, #052b2e 0%, #0e8388 100%);
+  color: white;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 3vh 4vw;
+}
+.pod-label { font-size: 1.5vw; letter-spacing: 0.4vw; text-transform: uppercase; color: #fb6a5a; margin-bottom: 3vh; font-weight: 700; }
+.title-slide h1 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 6.5vw; line-height: 1.15; width: 90vw; margin-bottom: 3.5vh; }
+.red-line { width: 6vw; height: 0.6vh; background: #fb6a5a; margin: 0 auto 3vh; }
+.title-meta { display: flex; gap: 4vw; font-size: 1.8vw; opacity: 0.65; flex-wrap: wrap; justify-content: center; }
+
+/* ════════════════════════════════
+   CONTENT SLIDE BASE
+════════════════════════════════ */
+.con-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.slide-head {
+  border-left: 0.5vw solid #fb6a5a;
+  padding-left: 1.5vw;
+  margin-bottom: 2.5vh;
+  flex-shrink: 0;
+}
+.slide-head h2 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; color: #0e8388; font-size: 3.2vw; line-height: 1.15; margin-bottom: 0.4vh; }
+.sub { color: #5e7377; font-size: 1.3vw; }
+
+/* ════════════════════════════════
+   ANTICIPAZIONE — split slides
+════════════════════════════════ */
+.single-box {
+  flex: 1;
+  background: #e6f3f2;
+  border-radius: 1vw;
+  padding: 3vh 3vw;
+  border-top: 0.5vh solid #0e8388;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.single-box h3 { color: #0e8388; font-size: 2.2vw; margin-bottom: 2.5vh; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; }
+.single-box ol { padding-left: 2.5vw; flex: 1; display: flex; flex-direction: column; justify-content: space-around; }
+.single-box ol li { font-size: 2vw; line-height: 1.6; }
+.single-box p { font-size: 2vw; line-height: 1.75; flex: 1; display: flex; align-items: center; }
+
+/* ════════════════════════════════
+   FIGURE CHIAVE
+════════════════════════════════ */
+.figures-slide {
+  background: #ffeae6;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.figures-slide .slide-head { border-color: #fb6a5a; }
+.figures-slide .slide-head h2 { color: #e24e3e; }
+.figures-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 1.5vh 2vw;
+  flex: 1;
+}
+.figure-card {
+  background: white; border-radius: 0.8vw;
+  border-left: 0.5vw solid #fb6a5a;
+  padding: 1.5vh 2vw;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.figure-card .fname { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 1.9vw; font-weight: 700; color: #0e8388; margin-bottom: 0.8vh; }
+.figure-card .fdesc { font-size: 1.35vw; color: #3a4a4e; line-height: 1.5; }
+
+/* ════════════════════════════════
+   VOCABULARY
+════════════════════════════════ */
+.vocab-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 2vh 4vw 2vh;
+  overflow: hidden;
+}
+.vocab-group-label {
+  font-size: 1.1vw; letter-spacing: 0.2vw; text-transform: uppercase;
+  color: #5e7377; font-weight: 700; margin: 1.2vh 0 1vh;
+  padding-bottom: 0.6vh; border-bottom: 2px solid #d7e6e4;
+  flex-shrink: 0;
+}
+.vocab-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2vh 2vw; flex: 1;
+}
+.vcard {
+  background: white; border-radius: 0.8vw;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.09);
+  cursor: pointer; perspective: 900px;
+}
+.vcard-inner {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d; transition: transform 0.45s;
+}
+.vcard.flipped .vcard-inner { transform: rotateY(180deg); }
+.vfront, .vback {
+  position: absolute; width: 100%; height: 100%;
+  border-radius: 0.8vw; padding: 1.8vh 1.8vw;
+  backface-visibility: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.vfront { background: white; }
+.vfront .term { font-size: 2vw; font-weight: 700; color: #1e2a2e; line-height: 1.3; flex: 1; display: flex; align-items: center; }
+.vfront .vbottom { display: flex; flex-direction: column; gap: 0.6vh; flex-shrink: 0; }
+.vfront .rtag { display: inline-block; font-size: 1vw; padding: 0.3vh 0.8vw; border-radius: 2vw; background: #e6f3f2; color: #0e8388; font-weight: 600; align-self: flex-start; }
+.vfront .hint { font-size: 1.1vw; color: #9bb0b2; }
+.vback { background: #e6f3f2; transform: rotateY(180deg); }
+.vback .en { font-size: 1.8vw; font-weight: 700; color: #0e8388; margin-bottom: 1vh; }
+.vback .ex { font-size: 1.2vw; font-style: italic; color: #1e2a2e; border-left: 0.3vw solid #fb6a5a; padding-left: 0.8vw; line-height: 1.55; flex: 1; }
+.vback .rnote { font-size: 0.95vw; color: #5e7377; margin-top: 0.8vh; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   GRAMMAR
+════════════════════════════════ */
+.gram-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.gram-block {
+  background: white; border-radius: 1vw;
+  padding: 3vh 3vw;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-left: 0.6vw solid #0a6e72;
+  flex: 1; display: flex; flex-direction: column;
+}
+.gram-block h3 { color: #0e8388; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2.5vw; margin-bottom: 1.5vh; line-height: 1.2; }
+.gram-block .expl { font-size: 1.55vw; color: #3a4a4e; line-height: 1.7; margin-bottom: 2vh; flex-shrink: 0; }
+.gram-block ul { list-style: none; padding: 0; flex: 1; display: flex; flex-direction: column; justify-content: space-around; }
+.gram-block ul li { background: #e6f3f2; border-radius: 0.6vw; padding: 1.5vh 1.5vw; font-size: 1.45vw; font-style: italic; line-height: 1.6; }
+.gram-block ul li strong { font-style: normal; color: #fb6a5a; font-size: 1.5vw; }
+.gram-block .snote { font-size: 1.35vw; color: #1E8449; font-weight: 600; margin-top: 2vh; line-height: 1.55; padding: 1.5vh 1.5vw; background: #EAFAF1; border-radius: 0.6vw; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   COMPREHENSION
+════════════════════════════════ */
+.comp-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.comp-label { font-size: 1.2vw; letter-spacing: 0.2vw; text-transform: uppercase; color: #5e7377; margin-bottom: 2vh; font-weight: 700; padding-bottom: 1vh; border-bottom: 2px solid #d7e6e4; flex-shrink: 0; }
+.qlist { flex: 1; display: flex; flex-direction: column; gap: 1.5vh; }
+.qitem { background: white; border-radius: 0.8vw; padding: 2vh 2.5vw; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; gap: 1.5vw; font-size: 1.8vw; line-height: 1.65; flex: 1; align-items: center; }
+.qnum { color: #fb6a5a; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2.2vw; min-width: 2.5vw; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   CULTURAL
+════════════════════════════════ */
+.cult-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.cult-block {
+  background: white; border-radius: 1vw;
+  padding: 3vh 3vw;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-left: 0.6vw solid #fb6a5a;
+  flex: 1; display: flex; flex-direction: column;
+}
+.cult-block h3 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; color: #0e8388; font-size: 2.4vw; margin-bottom: 2vh; line-height: 1.2; flex-shrink: 0; }
+.cult-block p { font-size: 1.6vw; line-height: 1.8; flex: 1; }
+.en-gl { font-style: italic; color: #5e7377; font-size: 1.2vw; margin-top: 1.5vh; display: block; flex-shrink: 0; }
+.cult-hook { margin-top: 2.5vh; padding: 1.5vh 2vw; background: #fff1ef; border-radius: 0.6vw; font-size: 1.45vw; color: #e24e3e; line-height: 1.6; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   EXERCISES
+════════════════════════════════ */
+.ex-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.ex-block {
+  background: white; border-radius: 1vw;
+  padding: 2.5vh 3vw;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  flex: 1; display: flex; flex-direction: column;
+}
+.ex-block h3 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; color: #0e8388; font-size: 2.2vw; margin-bottom: 0.8vh; flex-shrink: 0; }
+.ex-instr { font-size: 1.3vw; color: #5e7377; margin-bottom: 1.8vh; line-height: 1.6; flex-shrink: 0; }
+
+/* Gap fill */
+.word-bank { display: flex; flex-wrap: wrap; gap: 1vw; margin-bottom: 2vh; padding: 1.5vh 1.5vw; background: #e6f3f2; border-radius: 0.8vw; flex-shrink: 0; }
+.dword { background: #0e8388; color: white; padding: 0.8vh 2vw; border-radius: 3vw; font-size: 1.5vw; cursor: pointer; user-select: none; font-weight: 600; }
+.dword.sel-w { outline: 0.3vw solid #fb6a5a; outline-offset: 0.2vw; }
+.dword.used { opacity: 0.3; cursor: default; }
+.gap-sentences { flex: 1; display: flex; flex-direction: column; justify-content: space-around; }
+.gap-sentence { font-size: 1.6vw; line-height: 1.4; }
+.drop-zone { display: inline-block; min-width: 10vw; border-bottom: 0.2vw solid #0e8388; margin: 0 0.5vw; padding: 0 0.5vw; color: #9bb0b2; font-style: italic; cursor: pointer; vertical-align: bottom; font-size: 1.5vw; }
+.drop-zone.filled { color: #1e2a2e; font-style: normal; font-weight: 700; background: #e6f3f2; border-radius: 0.3vw; border-bottom-color: #0a6e72; }
+.drop-zone.ok { border-bottom-color: #1E8449; background: #EAFAF1; color: #1E8449; }
+.drop-zone.wrong { border-bottom-color: #fb6a5a; background: #ffeae6; color: #fb6a5a; }
+.ex-btns { display: flex; gap: 1vw; margin-top: 1.5vh; flex-shrink: 0; }
+
+/* Answer key slide */
+.ak-slide {
+  background: #EAFAF1;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.ak-slide .slide-head { border-color: #1E8449; }
+.ak-slide .slide-head h2 { color: #1E8449; }
+.ak-content { background: white; border-radius: 1vw; padding: 2vh 3vw; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-left: 0.6vw solid #1E8449; flex: 1; display: flex; flex-direction: column; justify-content: space-around; }
+.ak-item { display: flex; gap: 1.5vw; align-items: center; padding: 1.5vh 2vw; background: #F4FDF8; border-radius: 0.6vw; font-size: 1.55vw; line-height: 1.6; }
+.ak-num { color: #1E8449; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2vw; min-width: 2.5vw; }
+.ak-word { font-weight: 700; color: #1E8449; }
+.ak-quote { font-style: italic; color: #5e7377; }
+
+/* Matching */
+.match-wrap { flex: 1; display: flex; flex-direction: column; }
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; flex: 1; margin-bottom: 1.5vh; }
+.match-col-label { font-size: 1.1vw; letter-spacing: 0.2vw; text-transform: uppercase; color: #5e7377; margin-bottom: 1vh; font-weight: 700; }
+.mitem { padding: 1.5vh 1.8vw; border-radius: 0.6vw; margin-bottom: 0.8vh; font-size: 1.45vw; cursor: pointer; border: 0.2vw solid transparent; background: #e6f3f2; transition: all 0.18s; line-height: 1.45; }
+.mitem:hover { border-color: #0a6e72; }
+.mitem.sel { border-color: #0e8388; background: #cde9e7; font-weight: 700; }
+.mitem.matched { border-color: #1E8449; background: #EAFAF1; color: #1E8449; cursor: default; font-weight: 600; }
+.mitem.bad { border-color: #fb6a5a; background: #ffeae6; }
+
+/* VF */
+.vf-list { flex: 1; display: flex; flex-direction: column; gap: 1.2vh; }
+.vf-row { display: flex; gap: 1.5vw; align-items: center; padding: 1.8vh 2vw; background: white; border-radius: 0.8vw; box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-size: 1.5vw; line-height: 1.6; flex: 1; }
+.vf-btns { display: flex; gap: 0.6vw; flex-shrink: 0; }
+.vfb { padding: 0.6vh 1.2vw; border-radius: 2vw; border: 0.2vw solid; font-size: 1.2vw; font-weight: 700; cursor: pointer; background: transparent; font-family: inherit; }
+.vfb.V { border-color: #1E8449; color: #1E8449; }
+.vfb.F { border-color: #fb6a5a; color: #fb6a5a; }
+.vfb.N { border-color: #5e7377; color: #5e7377; }
+.vfb.correct { background: #1E8449; color: white; border-color: #1E8449; }
+.vfb.incorrect { background: #fb6a5a; color: white; border-color: #fb6a5a; }
+.vf-note { font-size: 1.1vw; color: #1E8449; font-style: italic; margin-top: 0.5vh; display: none; }
+.vf-note.show { display: block; }
+
+/* Buttons */
+.ak-btn { padding: 1vh 2vw; background: #1E8449; color: white; border: none; border-radius: 0.5vw; cursor: pointer; font-size: 1.3vw; font-weight: 700; font-family: inherit; flex-shrink: 0; }
+.ak-btn:hover { opacity: 0.85; }
+.ak-btn.grey { background: #5e7377; }
+.answer-key { display: none; margin-top: 1.5vh; padding: 1.5vh 2vw; background: #EAFAF1; border-radius: 0.8vw; border-left: 0.4vw solid #1E8449; font-size: 1.3vw; line-height: 1.9; flex-shrink: 0; }
+.answer-key.show { display: block; }
+
+/* ════════════════════════════════
+   DISCUSSION
+════════════════════════════════ */
+.disc-slide {
+  background: #fbfdfd;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.disc-card { background: white; border-radius: 1vw; padding: 2.5vh 3vw; box-shadow: 0 4px 16px rgba(0,0,0,0.08); flex: 1; display: flex; flex-direction: column; }
+.disc-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2vh; flex-shrink: 0; }
+.disc-dots { display: flex; gap: 0.8vw; }
+.disc-dot { width: 1.2vw; height: 1.2vw; border-radius: 50%; background: #e6f3f2; border: 0.2vw solid #0a6e72; cursor: pointer; }
+.disc-dot.active { background: #0e8388; }
+.disc-dot.done { background: #1E8449; border-color: #1E8449; }
+.disc-qnum { font-size: 1.4vw; color: #5e7377; font-weight: 600; }
+.disc-q { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2vw; line-height: 1.6; color: #1e2a2e; margin-bottom: 2vh; flex-shrink: 0; }
+.disc-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; flex: 1; min-height: 0; }
+.disc-col { display: flex; flex-direction: column; min-height: 0; }
+.disc-col-label { font-size: 1.1vw; letter-spacing: 0.2vw; text-transform: uppercase; color: #5e7377; margin-bottom: 0.8vh; font-weight: 700; flex-shrink: 0; }
+.disc-user-box { flex: 1; padding: 1.5vh 1.5vw; border-radius: 0.8vw; background: #e6f3f2; font-size: 1.4vw; line-height: 1.7; border: 0.2vw solid transparent; min-height: 0; overflow-y: auto; }
+.disc-user-box.listening { border-color: #fb6a5a; background: #ffeae6; }
+.disc-user-box .ph { color: #9bb0b2; font-style: italic; }
+.disc-model-box { flex: 1; padding: 1.5vh 1.5vw; border-radius: 0.8vw; background: #EAFAF1; font-size: 1.3vw; line-height: 1.8; min-height: 0; overflow-y: auto; }
+.disc-model-box.blur .mtext { filter: blur(6px); user-select: none; }
+.reveal-btn { display: inline-block; margin-top: 0.8vh; padding: 0.7vh 1.8vw; background: #1E8449; color: white; border: none; border-radius: 0.5vw; font-size: 1.2vw; font-weight: 700; cursor: pointer; font-family: inherit; flex-shrink: 0; }
+.mic-row { display: flex; align-items: center; gap: 1.5vw; margin-top: 1.5vh; flex-shrink: 0; }
+.mic-btn { width: 5vw; height: 5vw; border-radius: 50%; border: none; background: #fb6a5a; color: white; font-size: 2.2vw; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(192,57,43,0.38); flex-shrink: 0; }
+.mic-btn.on { background: #1E8449; animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(30,132,73,0.5); } 50% { box-shadow: 0 0 0 1vw rgba(30,132,73,0); } }
+.mic-status { font-size: 1.2vw; color: #5e7377; line-height: 1.5; }
+.disc-nav { display: flex; gap: 1vw; justify-content: flex-end; margin-top: 1.5vh; flex-shrink: 0; }
+.disc-nav-btn { padding: 0.8vh 2.5vw; border-radius: 0.5vw; border: 0.2vw solid #0e8388; background: transparent; color: #0e8388; font-size: 1.3vw; font-weight: 700; cursor: pointer; font-family: inherit; }
+.disc-nav-btn:hover { background: #0e8388; color: white; }
+.speech-warn { background: #fff1ef; border: 0.15vw solid #fb6a5a; border-radius: 0.6vw; padding: 1vh 1.5vw; font-size: 1.2vw; color: #e24e3e; margin-bottom: 1.5vh; display: none; line-height: 1.5; flex-shrink: 0; }
+
+/* ════════════════════════════════
+   HOMEWORK
+════════════════════════════════ */
+.hw-slide {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  padding: 3vh 4vw;
+  overflow: hidden;
+}
+.hw-slide.red { background: #fff1ef; }
+.hw-slide.blue { background: #e6f3f2; }
+.hw-slide.gold { background: #ffeae6; }
+.hw-block { background: white; border-radius: 1vw; padding: 3.5vh 3.5vw; box-shadow: 0 4px 16px rgba(0,0,0,0.08); flex: 1; display: flex; flex-direction: column; }
+.hw-block.red-b { border-left: 0.6vw solid #fb6a5a; }
+.hw-block.blue-b { border-left: 0.6vw solid #0e8388; }
+.hw-block.gold-b { border-left: 0.6vw solid #fb6a5a; }
+.hw-block h3 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: 2.8vw; margin-bottom: 2.5vh; line-height: 1.15; flex-shrink: 0; }
+.hw-block.red-b h3 { color: #fb6a5a; }
+.hw-block.blue-b h3 { color: #0e8388; }
+.hw-block.gold-b h3 { color: #e24e3e; }
+.hw-block p { font-size: 1.6vw; line-height: 1.9; flex: 1; }
+.hw-prompt { font-size: 2vw; font-weight: 700; color: #1e2a2e; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; margin: 2.5vh 0; line-height: 1.45; flex-shrink: 0; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.8vw; margin-top: 2vh; flex-shrink: 0; }
+.chip { background: #e6f3f2; color: #0e8388; padding: 0.5vh 1.2vw; border-radius: 2vw; font-size: 1.2vw; font-weight: 700; }
+
+.kbd-hint { position: fixed; bottom: 1.5vh; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.55); color: white; font-size: 1.1vw; padding: 0.5vh 1.5vw; border-radius: 2vw; pointer-events: none; opacity: 0.78; white-space: nowrap; z-index: 200; }
+
+
+/* ════ GOODMAN ITALIANO — brand overrides ════ */
+:root{ --teal:#0E8388; --teal-dk:#0A5458; --teal-dkr:#073C40; --coral:#FB6A5A; --coral-dk:#E24E3E;
+       --ink:#1E2A2E; --muted:#5E7377; --paper:#FBFDFD; --teal-tint:#E6F3F2; }
+html,body{ background:#073C40; }
+#pb{ background:var(--coral); }
+
+/* ── Goodman-style SECTION SEPARATORS (flat & robust: no absolute, no z-index) ── */
+.sep-slide{
+  background:#0A5458;
+  background-image:
+    radial-gradient(circle at 88% 10%, #0E8388 0 18vh, rgba(14,131,136,0) 18vh),
+    radial-gradient(circle at 82% 94%, #073C40 0 13vh, rgba(7,60,64,0) 13vh);
+  width:100%; height:100%; isolation:isolate;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:0 8vw; border-left:1vw solid #FB6A5A; color:#fff;
+}
+.sep-kicker{ font-family:'Trebuchet MS',sans-serif; font-weight:700; font-size:1.5vw; letter-spacing:0.5vw; color:#8FC9C9; margin-bottom:0.6vh; }
+.sep-number{ font-family:'Trebuchet MS',sans-serif; font-weight:800; font-size:13vw; line-height:0.85; color:#FB6A5A; margin-bottom:1vh; }
+.sep-title{ font-family:'Trebuchet MS',sans-serif; font-weight:800; font-size:5vw; line-height:1.05; color:#fff; margin-bottom:2vh; max-width:78vw; }
+.sep-sub{ font-family:Calibri,'Segoe UI',sans-serif; font-style:italic; font-size:1.7vw; color:#CDE6E5; max-width:64vw; line-height:1.5; margin-bottom:2.5vh; }
+.sep-tags{ display:flex; flex-wrap:wrap; gap:0.8vw; max-width:70vw; }
+.sep-tag{ background:rgba(255,255,255,0.10); border:1px solid rgba(143,201,201,0.45); border-radius:2vw; padding:0.7vh 1.6vw; font-size:1.2vw; color:#E6F3F2; }
+.sep-brand{ margin-top:4vh; font-family:'Trebuchet MS',sans-serif; font-size:1.1vw; color:#7FB6B6; }
+
+/* ── Goodman TITLE SLIDE (flat & robust, branded Goodman · Italiano) ── */
+.title-slide{
+  background:#0A5458;
+  background-image:
+    radial-gradient(circle at 92% 4%, #0E8388 0 30vh, rgba(14,131,136,0) 30vh),
+    radial-gradient(circle at 97% 94%, #073C40 0 17vh, rgba(7,60,64,0) 17vh);
+  width:100%; height:100%; isolation:isolate;
+  display:flex; flex-direction:column; justify-content:center;
+  align-items:flex-start; text-align:left;
+  padding:0 8vw; border-left:1vw solid #FB6A5A; color:#fff;
+}
+.ts-brand{ font-family:'Trebuchet MS',sans-serif; font-weight:800; font-size:2.4vw; margin-bottom:2.5vh; }
+.ts-brand-name{ color:#fff; } .ts-brand-lang{ color:#FB6A5A; }
+.ts-kicker{ font-family:'Trebuchet MS',sans-serif; font-weight:700; font-size:1.4vw; letter-spacing:0.35vw; color:#FB6A5A; margin-bottom:1.6vh; }
+.ts-title{ font-family:'Trebuchet MS',sans-serif; font-weight:800; font-size:6vw; line-height:1.05; color:#fff; max-width:80vw; margin-bottom:3.2vh; }
+.ts-chips{ display:flex; flex-wrap:wrap; gap:1.2vw; }
+.ts-chip{ display:flex; align-items:center; gap:0.5vw; background:#073C40; border:1px solid #0E8388; border-radius:2vw; padding:0.8vh 1.8vw; }
+.ts-chip-k{ font-family:Calibri,'Segoe UI',sans-serif; font-weight:700; font-size:1.1vw; color:#FB6A5A; letter-spacing:0.08vw; }
+.ts-chip-v{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1.3vw; color:#fff; }
+
+/* Content-slide brand strip (Goodman · Italiano), top-left */
+.brand-strip{ font-family:'Trebuchet MS',sans-serif; font-weight:700; font-size:1.15vw; margin-bottom:0.9vh; flex-shrink:0; }
+.bs-name{ color:var(--teal); }
+.bs-lang{ color:var(--muted); }
+
+/* -- Video "Mentre guardi" slides (embedded, auto-cued) -- */
+.video-slide{ background:#FBFDFD; width:100%; height:100%; display:flex; flex-direction:column; padding:3vh 4vw; overflow:hidden; }
+.video-frame{ height:44vh; aspect-ratio:16/9; max-width:92vw; margin:0.5vh auto 2vh; border-radius:12px; overflow:hidden; box-shadow:0 2px 10px rgba(7,60,64,0.18); }
+.video-frame iframe{ width:100%; height:100%; border:0; display:block; }
+.video-summary{ background:#fff; border:1px solid #E2EEED; border-left:0.5vw solid #FB6A5A; border-radius:8px; padding:1.8vh 2vw; max-width:84vw; margin:0 auto; }
+.vs-label{ font-family:'Trebuchet MS',sans-serif; font-weight:700; color:#0E8388; font-size:1.15vw; letter-spacing:0.05vw; margin-bottom:0.7vh; }
+.video-summary p{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1.45vw; line-height:1.6; color:#1E2A2E; }
+
+/* Comprehension flip cards: content-sized (no fixed height), faces grid-stacked */
+.comp-slide{ display:flex; flex-direction:column; }
+.comp-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.8vh 1.5vw; align-items:start; margin:auto 0; }
+.ccard{ perspective:1400px; cursor:pointer; }
+.ccard-inner{ display:grid; transition:transform .45s; transform-style:preserve-3d; }
+.ccard.flipped .ccard-inner{ transform:rotateY(180deg); }
+.cface{ grid-area:1/1; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:10px; padding:1.8vh 1.5vw; display:flex; flex-direction:column; box-shadow:0 1px 4px rgba(7,60,64,0.10); }
+.cfront{ background:#fff; border:1px solid #E2EEED; border-left:0.4vw solid #0E8388; }
+.cback{ background:#0A5458; color:#fff; transform:rotateY(180deg); border-left:0.4vw solid #FB6A5A; }
+.cnum{ font-family:'Trebuchet MS',sans-serif; font-weight:800; color:#FB6A5A; font-size:1.6vw; }
+.cq{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1.35vw; line-height:1.45; color:#1E2A2E; margin-top:0.5vh; }
+.chint{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1vw; color:#5E7377; margin-top:1.2vh; }
+.ca-label{ font-family:'Trebuchet MS',sans-serif; font-weight:700; color:#9FE3E3; font-size:1.1vw; letter-spacing:0.05vw; margin-bottom:0.6vh; }
+.ca{ font-family:Calibri,'Segoe UI',sans-serif; font-size:1.3vw; line-height:1.5; color:#fff; }
+
+/* Content headers -> Trebuchet, teal; coral accent bar */
+.slide-head{ border-left-color:var(--coral); }
+.slide-head h2{ font-family:'Trebuchet MS',sans-serif; color:var(--teal); }
+
+/* Text-size control */
+#tsize{display:flex;align-items:center;gap:6px;margin:0 auto;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:3px 8px;color:#fff;font-size:13px;font-family:Calibri,'Segoe UI',sans-serif}
+#tsize button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:4px;cursor:pointer;font-weight:700;padding:2px 8px;font-family:inherit}
+#tsize button:hover{background:rgba(255,255,255,.32)}
+@media print{#tsize,#topbar,#pb-wrap,.kbd-hint{display:none}}
+
+
+/* ════════════════════════════════
+   READING (Goodman Ungherese)
+════════════════════════════════ */
+.read-slide { background: #fbfdfd; width: 100%; height: 100%; display: flex; flex-direction: column; padding: 3vh 4vw; overflow: hidden; }
+.read-box { background: white; border-radius: 1vw; padding: 2.5vh 3vw; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-left: 0.6vw solid #0e8388; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1.4vh; }
+.read-box h3 { font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; color: #0a5458; font-size: 2.1vw; line-height: 1.25; }
+.read-box p { font-size: 1.55vw; line-height: 1.8; color: #1e2a2e; }
+.read-box p.read-lead { font-weight: 700; color: #0e8388; font-size: 1.6vw; }
+.read-link { align-self: flex-start; margin-top: auto; font-size: 1.25vw; font-weight: 700; color: #fb6a5a; text-decoration: none; padding: 0.8vh 1.4vw; border: 0.15vw solid #fb6a5a; border-radius: 2vw; }
+.read-link:hover { background: #fff1ef; }
+/* Ungherese: 4 cards per row (groups of 4) */
+.vocab-grid { grid-template-columns: repeat(4, 1fr); }
+.vfront .term { font-size: 1.7vw; }
+.vback .en { font-size: 1.45vw; }
+.vback .ex { font-size: 1.05vw; }
+
+/* video link row + discussion nav states (Ungherese) */
+.video-linkrow { display:flex; align-items:center; gap:1.2vw; margin: -1vh auto 1.4vh; max-width:92vw; }
+.video-link { font-size:1.15vw; font-weight:700; color:#fff; background:#fb6a5a; text-decoration:none; padding:0.9vh 1.6vw; border-radius:2vw; box-shadow:0 2px 8px rgba(251,106,90,.35); }
+.video-link:hover { background:#e24e3e; }
+.video-linknote { font-size:1.05vw; color:#5e7377; }
+.disc-nav-btn:disabled { opacity:.35; cursor:default; }
+.disc-nav-btn.to-slide { background:#fb6a5a; color:#fff; border-color:#fb6a5a; }
+</style>
+</head>
+<body>
+
+<div id="pb-wrap"><div id="pb"></div></div>
+<div id="topbar">
+  <div id="slide-label">1 / 1 — …</div>
+  <div id="nav-btns">
+    <button class="nbtn" id="btn-prev" onclick="go(-1)" disabled>← Indietro</button>
+    <button class="nbtn" id="btn-next" onclick="go(1)">Avanti →</button>
+  </div>
+</div>
+<div id="viewport"></div>
+<div class="kbd-hint">← → per sfogliare &nbsp;·&nbsp; R = microfono (Conversazione)</div>
+
+<script>
+const SPEC = {"lesson": {"title": "E-metanolo danese: carburante verde per navi e plastica", "series": "euronews (in italiano)", "level": "B1", "lang": "it", "date": "novembre 2026", "time": "30–45 minuti", "topic": "Scienza · Energia · Danimarca", "file_base": "69_EMetanolo_IT_B1", "source_video": "https://www.youtube.com/watch?v=JGB7J8KuqjE", "source_article": "https://it.euronews.com/2026/11/20/e-metanolo-il-nuovo-carburante-verde-per-navi-e-plastica-nasce-al-polo-europeo-di-kasso"}, "title_slide": {"label": "Titolo", "pod_label": "euronews (in italiano)", "h1": "E-metanolo danese: carburante verde per navi e plastica"}, "dividers": {"warmup": {"title": "Riscaldamento", "desc": "Prima di guardare il servizio: parla dell'argomento e leggi di cosa parla la notizia.", "tags": ["3 domande", "Breve riassunto", "Numeri e nomi"]}, "vocab": {"title": "Parole chiave", "desc": "Sedici parole ed espressioni importanti dal servizio: in italiano, con la traduzione inglese e una frase di esempio.", "tags": ["L'impianto", "Energia e clima", "Navi e plastica", "Mercato e futuro"]}, "video": {"title": "Guarda il video!", "tags": ["1 parte", "euronews (in italiano)"], "desc": "Il video è in una sola parte. Prima leggi il breve riassunto in italiano semplice: così sarà più facile capire!"}, "reading": {"title": "Lettura", "desc": "L'articolo di Euronews in versione breve, livello B1. Se vuoi, leggi anche l'originale!", "tags": ["Articolo semplificato", "5 paragrafi"]}, "grammar": {"title": "Grammatica", "desc": "«Stiamo sostituendo i combustibili fossili con qualcosa di verde e rinnovabile» «Maersk sta convertendo parte della sua flotta» — stare + gerundio e le perifrasi aspettuali. Quando l'italiano usa la forma progressiva e quando basta il presente semplice, i verbi che non la accettano, stare per + infinito, andare e venire + gerundio, e le differenze con il progressive inglese.", "tags": ["stare + gerundio", "stare per", "andare + gerundio", "aspetto", "B1"]}, "comprehension": {"title": "Comprensione", "desc": "Sei domande: prima i fatti del servizio, poi le tue idee. Clicca sulla carta per vedere la risposta modello!", "tags": ["3 domande sui fatti", "3 domande aperte", "Risposte modello"]}, "exercises": {"title": "Esercizi", "desc": "Due esercizi interattivi per praticare le parole e il testo.", "tags": ["Parole mancanti", "Vero / Falso / Non detto"]}, "discussion": {"title": "Conversazione", "desc": "Rispondi a voce, in italiano, alle tre domande seguenti. Parla ad alta voce e in modo chiaro! Il microfono registra quello che dici: poi confronta con la risposta modello.", "tags": ["3 domande", "Microfono", "Risposte modello"]}, "homework": {"title": "Compiti", "desc": "Un breve compito scritto da fare prima della prossima lezione.", "tags": ["80–100 parole", "stare + gerundio"]}}, "warmup": {"questions": ["Secondo te, quali settori inquinano di più: le auto, gli aerei, le navi o le fabbriche?", "Hai mai sentito parlare di «carburanti verdi» o di idrogeno verde? Che cosa sai?", "Da bambino o da bambina giocavi con i mattoncini LEGO? Sai di che materiale sono fatti?"], "episode": {"h2": "Di cosa parla il servizio?", "sub": "Breve riassunto — euronews (in italiano), 20 novembre 2026", "body": "Euronews visita a Kassø, in Danimarca, il primo impianto industriale al mondo che produce e-metanolo su larga scala. L'e-metanolo è un carburante «verde»: si fa con acqua, elettricità del sole e CO₂ presa dagli impianti di biogas, senza petrolio né gas. Può alimentare le grandi navi e servire a produrre plastica. È un passo importante per decarbonizzare anche i settori più difficili, come il trasporto marittimo."}}, "figures": {"label": "Numeri e nomi", "h2": "Numeri e nomi", "sub": "Vale la pena ricordarli prima di guardare il servizio! (alcuni dati vengono dall'articolo)", "items": [["Kassø", "La località in Danimarca dove si trova l'impianto: il primo al mondo di questo tipo su scala industriale."], ["European Energy", "L'azienda danese che ha costruito l'impianto (dall'articolo)."], ["42.000 tonnellate", "La produzione prevista di e-metanolo in un anno; oggi circa 100 tonnellate al giorno (dall'articolo)."], ["mezzo milione", "I pannelli solari del parco accanto all'impianto, con una capacità di 300 MW (dall'articolo)."], ["Maersk", "Il gruppo danese di trasporto marittimo, uno dei maggiori acquirenti di metanolo verde (dall'articolo)."], ["LEGO", "A Billund l'e-metanolo serve già per produrre una plastica «verde» per le mani delle figurine (dall'articolo)."]]}, "vocab": [{"group": "🏭  L'impianto", "items": [{"it": "l'impianto", "en": "plant, facility", "ex": "il primo impianto industriale al mondo", "reg": "neutro/tecnico; «impianto solare», «impianto di biogas»; anche = system (impianto elettrico)"}, {"it": "su larga scala", "en": "on a large scale", "ex": "produrre e-metanolo su larga scala", "reg": "neutro; anche «su scala industriale»; contrario: «su piccola scala»"}, {"it": "il serbatoio", "en": "tank", "ex": "serbatoi di stoccaggio insolitamente piatti", "reg": "tecnico ma comune; «il serbatoio della benzina» = petrol tank"}, {"it": "il casco (di protezione)", "en": "(safety) helmet, hard hat", "ex": "mi sistemo il casco di protezione", "reg": "neutro; «il casco» anche per la moto e la bici"}]}, {"group": "🌱  Energia e clima", "items": [{"it": "la decarbonizzazione", "en": "decarbonisation", "ex": "un passo chiave verso la decarbonizzazione", "reg": "tecnico/giornalistico; «decarbonizzare» = to decarbonise"}, {"it": "il combustibile fossile", "en": "fossil fuel", "ex": "sostituire i combustibili fossili", "reg": "tecnico ma comune; di solito al plurale: carbone, petrolio, gas"}, {"it": "rinnovabile", "en": "renewable", "ex": "qualcosa di verde e rinnovabile", "reg": "neutro; «le (energie) rinnovabili» come nome"}, {"it": "il pannello solare", "en": "solar panel", "ex": "mezzo milione di pannelli solari", "reg": "neutro; «il parco solare» = solar farm; «il fotovoltaico»"}]}, {"group": "🚢  Navi e plastica", "items": [{"it": "il carburante", "en": "fuel (for engines)", "ex": "il nuovo carburante verde per le navi", "reg": "neutro; «fare carburante» = to refuel; «combustibile» è più generale"}, {"it": "alimentare", "en": "to power, to fuel; to feed", "ex": "usare l'e-metanolo per alimentare le navi", "reg": "neutro; senso tecnico = dare energia; senso base = dare da mangiare"}, {"it": "la flotta", "en": "fleet", "ex": "convertire parte della flotta a combustibili sostenibili", "reg": "neutro; navi, aerei, ma anche «flotta aziendale» di auto"}, {"it": "la materia prima", "en": "raw material", "ex": "una materia prima per produrre plastica", "reg": "neutro/economico; plurale «le materie prime»"}]}, {"group": "📈  Mercato e futuro", "items": [{"it": "sostituire (qualcosa con qualcosa)", "en": "to replace (something with something)", "ex": "stiamo sostituendo i combustibili fossili con qualcosa di verde", "reg": "neutro; attenzione alla preposizione: sostituire X CON Y"}, {"it": "la domanda", "en": "demand (economics); question", "ex": "questo fa aumentare la domanda e anche i prezzi", "reg": "neutro; in economia «la domanda e l'offerta» = supply and demand"}, {"it": "il quadro normativo", "en": "regulatory framework", "ex": "un quadro normativo stabile negli Stati membri", "reg": "formale/burocratico; «la normativa» = legislation"}, {"it": "c'è ancora molta strada da fare", "en": "there's still a long way to go", "ex": "c'è ancora molta strada da fare per sostituire le importazioni", "reg": "colloquiale/neutro; anche «la strada è ancora lunga»"}]}], "video": {"url": "https://www.youtube.com/watch?v=JGB7J8KuqjE", "title": "E-metanolo danese per navi e plastica: un passo chiave verso la decarbonizzazione", "channel": "euronews (in italiano)", "parts": [{"summary": "Euronews entra nell'impianto di Kassø, in Danimarca: è il primo impianto industriale al mondo che produce e-metanolo su larga scala. Il servizio mostra come si ottiene questo carburante verde e a che cosa serve: alimentare le navi e produrre plastica. L'idea è aprire la strada alla transizione energetica anche nei settori più difficili da decarbonizzare."}]}, "reading": {"title": "Kassø, dove il sole diventa carburante", "lead": "In Danimarca funziona il primo impianto al mondo che produce e-metanolo su scala industriale. Può alimentare le navi e diventare plastica, anche per i LEGO.", "paragraphs": ["Alcuni settori, come il trasporto marittimo e la produzione di plastica, fanno molta fatica a ridurre le emissioni di CO₂. L'e-metanolo potrebbe risolvere una parte del problema. Per produrlo servono tre ingredienti: biogas che viene dai liquami degli animali, elettricità dai pannelli solari e acqua da un pozzo. A Kassø, in Danimarca, tutto questo succede in una specie di giungla industriale di tubi d'acciaio, torri e serbatoi.", "«Ogni giorno riceviamo cinque camion carichi di CO₂ biogenica», spiega Lars Dyrholm, il direttore dell'impianto. Negli elettrolizzatori l'acqua viene separata in idrogeno e ossigeno; poi si aggiunge la CO₂ e si ottiene l'e-metanolo. «Stiamo sostituendo i combustibili fossili con qualcosa di verde e rinnovabile», dice Dyrholm. L'impianto è progettato per produrre 42.000 tonnellate all'anno; al momento ne produce circa 100 al giorno.", "Uno dei clienti più importanti è il gruppo danese Maersk, che sta convertendo una parte delle sue navi a combustibili sostenibili. Ma l'e-metanolo non serve solo per le navi. A Billund, la città della LEGO, diventa una plastica rispettosa del clima: con questo materiale si producono già le piccole mani delle figurine, le ruote e i pezzi di collegamento.", "L'azienda, European Energy, vuole costruire altri impianti, ma ha bisogno di regole europee stabili e di lungo periodo. Secondo il cofondatore Knud Erik Andersen, l'Europa importa ancora circa il 60% della sua energia: «C'è ancora molta strada da fare». Il settore pubblico, dice, potrebbe aiutare comprando e-fuel per le navi della marina.", "Per l'elettrolisi serve moltissima elettricità. Per questo l'impianto si trova accanto a uno dei più grandi parchi solari del Nord Europa: mezzo milione di pannelli. L'energia che non viene usata a Kassø entra nella rete nazionale, collegata al resto d'Europa. L'obiettivo è una transizione al 100% verde, in Danimarca e nel mondo."], "url": "https://it.euronews.com/2026/11/20/e-metanolo-il-nuovo-carburante-verde-per-navi-e-plastica-nasce-al-polo-europeo-di-kasso"}, "grammar": [{"label": "Grammatica — Stare + gerundio e le perifrasi aspettuali", "subtitle": "«Stiamo sostituendo i combustibili fossili con qualcosa di verde e rinnovabile» · «il gruppo Maersk, che sta convertendo parte della sua flotta» · «Mentre mi sistemo il casco di protezione, un enorme camion entra nel sito»", "title": "Sto facendo, sto per fare, vado facendo: l'azione vista da vicino", "expl": "Nell'articolo il direttore dell'impianto dice: «Stiamo sostituendo i combustibili fossili con qualcosa di verde e rinnovabile». E del gruppo Maersk si legge che «sta convertendo parte della sua flotta a combustibili sostenibili». Questa è la PERIFRASI PROGRESSIVA: STARE (coniugato) + GERUNDIO. Non indica un tempo diverso, ma un ASPETTO diverso: guardiamo l'azione da dentro, mentre è in corso, non ancora finita. 1) LA FORMA. Stare al presente, all'imperfetto, al futuro, al condizionale o al congiuntivo + gerundio invariabile (-ando per i verbi in -are, -endo per i verbi in -ere e -ire): sto lavorando, stavi leggendo, staranno dormendo, starebbe arrivando, credo che stia piovendo. Gerundi irregolari: fare → facendo, dire → dicendo, bere → bevendo, porre → ponendo, tradurre → traducendo. I pronomi atoni vanno PRIMA di stare oppure attaccati al gerundio: «Lo stiamo sostituendo» = «Stiamo sostituendolo» (la prima forma è più comune nel parlato). 2) PRESENTE SEMPLICE O STARE + GERUNDIO? Al contrario dell'inglese, in italiano il presente semplice basta quasi sempre anche per un'azione in corso: «Che cosa fai?» – «Leggo il giornale». Guarda l'articolo: «Mentre mi sistemo il casco, un enorme camion entra nel sito» — due azioni in corso, nessuna forma progressiva. Usiamo STARE + GERUNDIO quando vogliamo SOTTOLINEARE che l'azione è in corso proprio ora, o che è un processo che va avanti e non è ancora concluso: «Stiamo sostituendo i combustibili fossili» = è un cambiamento in corso, graduale, non finito. Per questo la forma progressiva è molto frequente con i verbi di cambiamento e di processo: sostituire, convertire, crescere, aumentare, cambiare, migliorare, peggiorare: «La domanda sta aumentando», «Il clima sta cambiando». 3) I LIMITI: QUANDO NON SI USA. a) Non con i verbi di stato (essere, avere nel senso di possedere, sapere, conoscere, volere, piacere, sembrare): NON *sto sapendo, *sta piacendo; si dice «so», «mi piace». b) Non al passato prossimo né agli altri tempi composti: NON *sono stato lavorando (calco dell'inglese «I have been working»); si dice «lavoro da due ore» o «ho lavorato tutto il giorno». c) Non al passivo: NON *sta essendo costruito; si dice «lo stanno costruendo» o «è in costruzione». d) Non all'imperativo. e) Normalmente non con un'indicazione di durata chiusa o di ripetizione: «Ho lavorato lì per tre anni», non *stavo lavorando per tre anni. f) Non per il futuro programmato, come in inglese «We're meeting tomorrow»: in italiano «Ci vediamo domani» (presente) o «ci vedremo». 4) IMPERFETTO SEMPLICE O STAVO + GERUNDIO? Al passato la scelta è simile: «Mentre leggevo, è suonato il telefono» = «Mentre stavo leggendo, è suonato il telefono». Stavo + gerundio insiste ancora di più sul momento preciso in cui l'azione era in corso, interrotta da un'altra («stavo uscendo quando…»). Ma solo l'imperfetto semplice può indicare un'abitudine: «Da piccolo giocavo con i LEGO» (non *stavo giocando). 5) FUTURO E CONDIZIONALE DI STARE: LA SUPPOSIZIONE. «Starà dormendo» = probabilmente sta dormendo adesso; «Starebbero costruendo un nuovo impianto» = si dice (ma non è confermato) che lo stanno costruendo — è il condizionale della notizia non confermata, molto frequente nei giornali. 6) STARE PER + INFINITO: L'AZIONE IMMINENTE. Un'altra perifrasi con stare, ma con l'infinito: «Il camion sta per entrare nel sito» = entrerà tra pochissimo. «Stavo per uscire quando hai chiamato» = ero sul punto di uscire. Inglese: be about to / be on the point of. Attenzione a non confondere: «sta entrando» (è già in corso) / «sta per entrare» (non ancora). 7) ANDARE E VENIRE + GERUNDIO: IL PROCESSO GRADUALE. Nella lingua scritta e giornalistica si trova anche ANDARE + gerundio (un processo che avanza a poco a poco): «La domanda di carburanti verdi va crescendo» = cresce sempre di più. VENIRE + gerundio ha un valore simile, spesso con un'idea di ripetizione o di sviluppo nel tempo: «come si veniva dicendo» (registro formale). Sono forme più letterarie e formali di stare + gerundio; nel parlato di tutti i giorni si dice «sta crescendo» o «cresce sempre di più». 8) ALTRE PERIFRASI DI ASPETTO. Inizio: cominciare a / mettersi a + infinito («Si è messo a correre»). Continuazione: continuare a + infinito («L'impianto continua a produrre»). Fine: smettere di / finire di + infinito; appena finito: avere appena + participio («Il camion è appena arrivato»). 9) NOTA PER CHI TRADUCE. L'inglese usa il progressive molto più dell'italiano: «What are you doing?» → «Che fai?», «It's raining» → «Piove» (o «sta piovendo», più enfatico), «I'm living in Budapest at the moment» → «Al momento vivo a Budapest». Tradurre ogni -ing con stare + gerundio produce un italiano pesante e a volte sbagliato (*sto avendo fame). Nella direzione opposta, «stiamo sostituendo» va bene come «we are replacing», ma un presente italiano di azione in corso diventa spesso un progressive inglese: «un camion entra nel sito» → «a lorry is coming into the site».", "examples": [["«Stiamo sostituendo i combustibili fossili con qualcosa di verde e rinnovabile»", " — stare + gerundio: processo in corso, non concluso (dall'articolo)"], ["«che sta convertendo parte della sua flotta a combustibili sostenibili»", " — cambiamento graduale in corso (dall'articolo)"], ["«Mentre mi sistemo il casco di protezione, un enorme camion entra nel sito»", " — presente semplice per due azioni in corso: niente forma progressiva (dall'articolo)"], ["«Al momento produciamo circa 100 tonnellate al giorno»", " — presente semplice: situazione attuale, non la forma progressiva (dall'articolo)"], ["Il camion sta per entrare nel sito.", " — stare per + infinito: azione imminente (be about to)"], ["La domanda di e-metanolo va crescendo di anno in anno.", " — andare + gerundio: processo graduale, registro scritto"], ["Stavo leggendo l'articolo quando è arrivato il messaggio.", " — stavo + gerundio: azione in corso interrotta"], ["✗ Sono stato lavorando tutto il giorno. → ✓ Ho lavorato tutto il giorno.", " — niente stare + gerundio nei tempi composti"]], "snote": "Stare + gerundio = azione in corso, vista da dentro (aspetto progressivo). In italiano il presente semplice basta quasi sempre; la forma progressiva sottolinea il «proprio adesso» o un processo che cambia («stiamo sostituendo», «sta aumentando»). Mai con verbi di stato, nei tempi composti, al passivo, all'imperativo. Starà facendo = supposizione. Stare per + infinito = sta per succedere. Andare/venire + gerundio = processo graduale, registro scritto. In traduzione: non ogni -ing inglese diventa stare + gerundio."}], "comprehension": [{"label": "Comprensione", "h2": "Comprensione", "sub": "1–3: fatti dal servizio · 4–6: domande aperte", "compLabel": "📻 Fatti dal servizio (1–3)  ·  💭 Domande aperte (4–6)", "questions": [["1.", "Dove si trova l'impianto visitato da Euronews, e che cosa ha di speciale?", "A Kassø, in Danimarca. È il primo impianto industriale al mondo che produce e-metanolo su larga scala."], ["2.", "Per quali due usi può servire l'e-metanolo?", "Per alimentare le navi e per produrre plastica."], ["3.", "Perché questo impianto è importante per la transizione energetica?", "Perché apre la strada alla decarbonizzazione anche nei settori più difficili, come il trasporto marittimo e la produzione di plastica."], ["4.", "Secondo te, perché è così difficile decarbonizzare le grandi navi?", "Perché le navi fanno viaggi lunghissimi e hanno bisogno di molta energia: le batterie sarebbero troppo pesanti. Per questo servono carburanti liquidi, ma verdi, come l'e-metanolo."], ["5.", "Pagheresti di più per un prodotto fatto con plastica «verde», per esempio un giocattolo?", "Sì, se la differenza di prezzo non è troppo grande. Mi piace l'idea che anche un giocattolo possa aiutare il clima, ma vorrei sapere se è davvero più ecologico."], ["6.", "Che cosa fa il tuo Paese per le energie rinnovabili? Vedi pannelli solari o pale eoliche dove vivi?", "In Ungheria si vedono sempre più pannelli solari, sui tetti delle case e in grandi parchi solari in campagna. Le pale eoliche invece sono poche."]]}], "gapfill": {"heading": "Completa le frasi in base al servizio!", "words": ["Danimarca", "impianto", "navi", "plastica", "decarbonizzare"], "sents": [{"pre": "1.  Il servizio ci porta a Kassø, in", "blank": "Danimarca", "post": "."}, {"pre": "2.  È il primo", "blank": "impianto", "post": "industriale al mondo che produce e-metanolo su larga scala."}, {"pre": "3.  L'e-metanolo può alimentare le grandi", "blank": "navi", "post": "."}, {"pre": "4.  Serve anche come materia prima per produrre", "blank": "plastica", "post": "."}, {"pre": "5.  Aiuta a", "blank": "decarbonizzare", "post": "anche i settori più difficili."}], "answers": [["1.", "Danimarca", "«la Danimarca» = Denmark; «danese» = Danish"], ["2.", "impianto", "«l'impianto» = plant, facility"], ["3.", "navi", "«la nave, le navi» = ship(s)"], ["4.", "plastica", "«la plastica» = plastic"], ["5.", "decarbonizzare", "«decarbonizzare» = to decarbonise; «la decarbonizzazione»"]]}, "verofalso": {"items": [{"s": "L'impianto si trova in Danimarca.", "a": "V", "note": ""}, {"s": "Il servizio dice che esistono già molti impianti come questo in Europa.", "a": "F", "note": "È il primo impianto industriale al mondo di questo tipo."}, {"s": "L'e-metanolo può essere usato per le navi.", "a": "V", "note": ""}, {"s": "L'e-metanolo si produce con il petrolio.", "a": "F", "note": "Al contrario: si produce senza combustibili fossili, con acqua, elettricità verde e CO₂ dal biogas."}, {"s": "L'e-metanolo serve anche per produrre plastica.", "a": "V", "note": ""}, {"s": "Un litro di e-metanolo costa meno di un litro di gasolio.", "a": "N", "note": "Il servizio non parla del prezzo dell'e-metanolo rispetto al gasolio."}], "key_html": "<b>1.</b> Vero &nbsp; <b>2.</b> Falso (è il primo al mondo) &nbsp; <b>3.</b> Vero &nbsp; <b>4.</b> Falso (niente combustibili fossili) &nbsp; <b>5.</b> Vero &nbsp; <b>6.</b> Non detto"}, "discussion": [{"q": "Che cosa sta cambiando nella tua città o nella tua vita per l'ambiente? Usa almeno due volte stare + gerundio (per esempio: «Stanno costruendo…», «Sto cercando di…»).", "m": "Nella mia città stanno costruendo nuove piste ciclabili e il comune sta sostituendo i vecchi autobus con autobus elettrici. Io sto cercando di usare meno la macchina: per andare in centro prendo il tram."}, {"q": "Ti piacerebbe visitare un impianto industriale come quello di Kassø? Che cosa vorresti vedere o chiedere?", "m": "Sì, mi piacerebbe molto. Vorrei vedere gli elettrolizzatori e chiedere quanta energia serve per produrre un litro di e-metanolo, e se il prodotto finale costa più dei carburanti tradizionali."}, {"q": "Secondo te, lo Stato dovrebbe comprare carburanti verdi anche se costano di più, per aiutare il mercato a crescere?", "m": "Secondo me sì, almeno all'inizio: se lo Stato compra, le aziende possono investire e i prezzi poi scendono. Però bisogna farlo con trasparenza, perché sono soldi dei cittadini."}], "homework": [{"label": "Compiti — Scrittura", "bgCls": "red", "blockCls": "red-b", "h3color": "#E24E3E", "h3text": "✍ Un cambiamento in corso (80–100 parole)", "bodyHTML": "Scrivi un breve testo su <b>un cambiamento che sta succedendo adesso</b> (nel tuo lavoro, nella tua città, nel tuo Paese o nella tecnologia). Che cosa sta cambiando? Chi lo sta facendo? Che cosa sta per succedere?<br><br>Usa <b>almeno tre volte stare + gerundio</b> per i processi in corso, <b>una volta stare per + infinito</b> per qualcosa di imminente, e il <b>presente semplice</b> per i fatti stabili. Attenzione: non usare la forma progressiva con i verbi di stato (sapere, volere, piacere…).<br><br>Usa anche almeno <b>cinque parole</b> della lezione (per esempio: <i>l'impianto, rinnovabile, sostituire, la domanda, c'è ancora molta strada da fare</i>).", "chips": ["80–100 parole", "5 parole nuove", "stare + gerundio"]}], "grammar_practice": [{"title": "Presente semplice o stare + gerundio?", "instr": "Scegli la forma giusta (a o b). In alcune frasi vanno bene tutte e due: scrivi «a/b» e spiega la differenza.", "items": ["1.  Non posso rispondere al telefono adesso: (a) guido  (b) sto guidando.", "2.  L'azienda (a) sa  (b) sta sapendo che serve un quadro normativo stabile.", "3.  Ogni giorno due camion (a) partono  (b) stanno partendo dal sito con l'e-metanolo.", "4.  Guarda! Un enorme camion (a) entra  (b) sta entrando nel sito proprio ora.", "5.  Questo progetto mi (a) piace  (b) sta piacendo molto.", "6.  Il clima (a) cambia  (b) sta cambiando più in fretta del previsto.", "7.  Da bambino (a) giocavo  (b) stavo giocando sempre con i LEGO.", "8.  Domani (a) visitiamo  (b) stiamo visitando l'impianto di Kassø."], "answers": ["1.  b (anche a, meno enfatico) — azione in corso proprio adesso", "2.  a — «sapere» è un verbo di stato: niente forma progressiva", "3.  a — azione abituale e ripetuta", "4.  b (anche a) — «proprio ora» sottolinea l'azione in corso", "5.  a — «piacere» è un verbo di stato", "6.  a/b — b mette in rilievo il processo graduale in corso", "7.  a — abitudine nel passato: solo imperfetto semplice", "8.  a — futuro programmato: in italiano presente (o futuro), non la forma progressiva come in inglese"]}, {"title": "Sta facendo o sta per fare?", "instr": "Leggi la situazione e completa con stare + gerundio (azione in corso) o stare per + infinito (azione imminente). Usa il verbo tra parentesi.", "items": ["1.  Il camion è al cancello, tra un minuto entra. → Il camion ______ nel sito. (entrare)", "2.  In questo momento gli operai controllano i serbatoi. → Gli operai ______ i serbatoi. (controllare)", "3.  La nave è già in mare da tre giorni. → La nave ______ l'oceano. (attraversare)", "4.  Ero sul punto di uscire quando hai chiamato. → ______ quando hai chiamato. (uscire, io)", "5.  Maersk cambia a poco a poco il carburante delle sue navi. → Maersk ______ la sua flotta. (convertire)", "6.  Il nuovo impianto aprirà la settimana prossima. → Il nuovo impianto ______. (aprire)"], "answers": ["1.  sta per entrare", "2.  stanno controllando", "3.  sta attraversando", "4.  Stavo per uscire", "5.  sta convertendo", "6.  sta per aprire"]}, {"title": "Trova l'errore (attenzione all'inglese!)", "instr": "Ogni frase è un calco dell'inglese oppure è corretta. Scrivi «corretta» oppure correggi la frase.", "items": ["1.  Sono stato lavorando in questo impianto per tre anni.", "2.  Il nuovo parco solare sta essendo costruito vicino a Kassø.", "3.  Lars sta avendo un casco di protezione rosso.", "4.  Che cosa stai leggendo? – Un articolo sull'e-metanolo.", "5.  Stavo per chiudere il computer quando è arrivata la notizia.", "6.  La domanda di carburanti verdi è andata crescendo negli ultimi anni.", "7.  Non è a casa: starà ancora lavorando in ufficio."], "answers": ["1.  Lavoro in questo impianto da tre anni / Ho lavorato in questo impianto per tre anni — niente stare + gerundio nei tempi composti", "2.  Stanno costruendo il nuovo parco solare / Il nuovo parco solare è in costruzione — niente forma progressiva al passivo", "3.  Lars ha un casco di protezione rosso — «avere» (possedere) è un verbo di stato", "4.  corretta — azione in corso", "5.  corretta — stare per + infinito: azione imminente interrotta", "6.  corretta — andare + gerundio (processo graduale, registro scritto): a differenza di stare, si usa anche nei tempi composti", "7.  corretta — futuro di stare + gerundio: supposizione"]}]};
+</script>
+<script>
+/* ════════════════════════════════════════════════════════════════
+   GOODMAN ITALIANO B1 — HTML SLIDE ENGINE
+   Renders an Italian B1 lesson from a single SPEC object.
+   Forked from the Goodman Ungherese B1 engine; Italian UI strings,
+   English glosses, it-IT speech recognition.
+   ════════════════════════════════════════════════════════════════ */
+
+const UI = {
+  brandLang: ' · Italiano B1',
+  brandLine: 'Goodman · Italiano B1',
+  sectionKicker: 'SEZIONE',
+  chips: [['LIVELLO','level'],['DATA','date'],['DURATA','time']],
+  warmupLabel: 'Riscaldamento — Domande', warmupH2: 'Riscaldamento',
+  warmupSub: 'Prima di guardare il video, parla di queste domande!',
+  warmupBox: '🗣 Parliamone!',
+  vocabH2: 'Parole chiave', vocabSub: 'Clicca sulla carta! · italiano → inglese + esempio dal video',
+  flipHint: '👆 Clicca per la traduzione!',
+  videoLabel: 'Guarda il video — parte ', videoPart: '', videoOf: ' / ',
+  videoSubRange: 'Segmento: ', videoSubDefault: 'Guarda questa parte, poi vai avanti!',
+  videoOpen: '▶ Apri il video su YouTube', videoOpenNote: 'Se il video non parte qui, aprilo da questo link!',
+  videoSummary: 'Riassunto · livello B1',
+  readLabel: 'Lettura', readH2: 'Lettura — l\'articolo in breve',
+  readSub: 'Testo semplificato al livello B1 · l\'articolo originale è sul sito di Euronews',
+  readLink: 'Apri l\'articolo originale ↗',
+  compAnswer: 'Risposta modello', compHint: '👆 Clicca per la risposta modello!',
+  gapLabel: 'Esercizio 1 — Parole mancanti', gapH2: 'Esercizio 1 — Parole mancanti',
+  gapSub: 'Scegli una parola dalla lista, poi clicca sullo spazio vuoto nella frase!',
+  gapInstr: '① Clicca su una parola della lista — si evidenzia.  ② Clicca sullo spazio tratteggiato nella frase!  ③ Alla fine premi il pulsante Verifica!',
+  gapHeading: 'Completa le frasi in base al video!',
+  check: '✓ Verifica', reset: '↺ Ricomincia',
+  gapAkLabel: 'Esercizio 1 — Soluzioni', gapAkH2: 'Soluzioni — Parole mancanti', gapAkSub: 'Chiave completa con il contesto originale',
+  word: 'Parola',
+  matchLabel: 'Esercizio — Abbinamento', matchH2: 'Abbinamento',
+  matchSub: 'Clicca su una parola a sinistra, poi sul suo significato a destra!',
+  matchInstr: '① Clicca su una parola (colonna sinistra) — si evidenzia.  ② Clicca sul significato corrispondente! Le coppie giuste diventano verdi.',
+  matchHeading: 'Abbina la parola al suo significato!', matchTerm: 'Parola', matchDef: 'Significato', showAnswers: 'Mostra le soluzioni',
+  vfLabel: 'Esercizio 2 — Vero/Falso', vfH2: 'Esercizio 2 — Vero / Falso / Non detto',
+  vfSub: 'Quale affermazione è vera, falsa o non viene detta nel video?',
+  vfInstr: 'Clicca sul pulsante giusto per ogni affermazione! Se l\'affermazione è falsa, appare la correzione.',
+  vfHeading: 'In base al video decidi: V · F · ND!', vfAll: 'Mostra tutte le soluzioni',
+  vfBtns: [['V','V'],['F','F'],['N','ND']],
+  discLabel: 'Conversazione', discH2: 'Conversazione — di\' la tua opinione!',
+  discSub: 'R = microfono on/off  ·  usa i pulsanti in basso per passare da una domanda all\'altra',
+  speechWarn: '⚠ Il riconoscimento vocale funziona solo in Google Chrome.',
+  question: 'domanda', ofN: ' / ',
+  yourAnswer: '🎤 La tua risposta', modelAnswer: '📖 Risposta modello', reveal: 'Mostra la risposta modello!',
+  micPh: 'Clicca sul microfono e parla in italiano!',
+  micStart: 'Premi il tasto R oppure clicca sul microfono! Se il browser chiede il permesso, scegli «Consenti a ogni visita» — così lo dai una volta sola.',
+  micReady: '🎙 Il microfono è pronto — premi R oppure clicca per registrare!',
+  micRec: 'Registrazione in corso… R = stop', micPause: 'Registrazione in pausa. Premi R oppure clicca sul microfono per continuare!',
+  prev: '← Precedente', next: 'Successiva →', nextSlide: 'Avanti alla sezione successiva →',
+  hwSub: 'Da fare prima della prossima lezione',
+  tsize: 'Dimensione testo'
+};
+
+// ── Data shortcuts ───────────────────────────────────────────────
+const VOCAB     = SPEC.vocab || [];
+const GAP_WORDS = (SPEC.gapfill && SPEC.gapfill.words) || [];
+const GAP_SENTS = (SPEC.gapfill && SPEC.gapfill.sents) || [];
+const MATCH     = (SPEC.match && SPEC.match.items) || [];
+const VF        = (SPEC.verofalso && SPEC.verofalso.items) || [];
+const DISC      = SPEC.discussion || [];
+
+const vp = document.getElementById('viewport');
+const SLIDES = [];
+
+function makeSlide(label, cls) {
+  const div = document.createElement('div');
+  div.className = 'slide ' + cls;
+  vp.appendChild(div);
+  SLIDES.push({ label, el: div });
+  if (cls !== 'title-slide' && cls !== 'sep-slide') {
+    const bs = document.createElement('div'); bs.className = 'brand-strip';
+    const n = document.createElement('span'); n.className = 'bs-name'; n.textContent = 'Goodman';
+    const l = document.createElement('span'); l.className = 'bs-lang'; l.textContent = UI.brandLang;
+    bs.appendChild(n); bs.appendChild(l); div.appendChild(bs);
+  }
+  return div;
+}
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+function ap(parent, ...children) { children.forEach(c => parent.appendChild(c)); return parent; }
+
+// ── Slide factories ──────────────────────────────────────────────
+function makeTitle(t) {
+  const L = SPEC.lesson || {};
+  const s = makeSlide(t.label || 'Titolo', 'title-slide');
+  const brand = el('div','ts-brand');
+  ap(brand, el('span','ts-brand-name','Goodman'), el('span','ts-brand-lang', UI.brandLang));
+  const kicker = el('div','ts-kicker', (L.series || t.pod_label || '').trim().toUpperCase());
+  const h1 = el('div','ts-title', t.h1 || L.title);
+  const chips = el('div','ts-chips');
+  UI.chips.forEach(([k,key]) => {
+    const v = L[key]; if (!v) return;
+    const c = el('div','ts-chip'); ap(c, el('span','ts-chip-k', k), el('span','ts-chip-v', v)); chips.appendChild(c);
+  });
+  ap(s, brand, kicker, h1, chips);
+}
+
+let _divSeq = 0;
+function makeDivider(d) {
+  _divSeq++;
+  const s = makeSlide(d.label || (d.title + ' →'), 'sep-slide');
+  ap(s, el('div','sep-kicker', UI.sectionKicker), el('div','sep-number', String(_divSeq).padStart(2,'0')),
+        el('h2','sep-title', d.title), el('div','sep-sub', d.desc));
+  const tagWrap = el('div','sep-tags');
+  (d.tags || []).forEach(t => ap(tagWrap, el('span','sep-tag', t)));
+  ap(s, tagWrap, el('div','sep-brand', UI.brandLine));
+}
+
+function makeQuestionsSlide(label, h2, sub, boxTitle, questions) {
+  const s = makeSlide(label, 'con-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', h2), el('div','sub', sub));
+  const box = el('div','single-box'); ap(box, el('h3','', boxTitle));
+  const ol = document.createElement('ol'); questions.forEach(q => ol.appendChild(el('li','', q)));
+  ap(box, ol); ap(s, head, box);
+}
+function makeProseSlide(label, h2, sub, body) {
+  const s = makeSlide(label, 'con-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', h2), el('div','sub', sub));
+  const box = el('div','single-box'); ap(box, el('p','', body));
+  ap(s, head, box);
+}
+function makeFiguresSlide(fig) {
+  const s = makeSlide(fig.label || 'Numeri e nomi', 'figures-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', fig.h2), el('div','sub', fig.sub));
+  const grid = el('div','figures-grid');
+  (fig.items || []).forEach(([name, desc]) => { const card = el('div','figure-card'); ap(card, el('div','fname', name), el('div','fdesc', desc)); grid.appendChild(card); });
+  ap(s, head, grid);
+}
+
+// vocab: groups per slide, flip cards (front HU term + register, back IT + example)
+function makeVocabSlide(label, groups) {
+  const s = makeSlide(label, 'vocab-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.vocabH2), el('div','sub', UI.vocabSub)); ap(s, head);
+  groups.forEach(group => {
+    const lbl = el('div','vocab-group-label', group.group);
+    const grid = el('div','vocab-grid');
+    (group.items || []).forEach(item => {
+      const card = el('div','vcard'); const inner = el('div','vcard-inner');
+      const front = el('div','vfront'); const term = el('div','term', item.it);
+      const vbot = el('div','vbottom'); const rtag = el('span','rtag', (item.reg || '').split(',')[0].trim());
+      ap(vbot, rtag, el('div','hint', UI.flipHint)); ap(front, term, vbot);
+      const back = el('div','vback');
+      ap(back, el('div','en', item.en), el('div','ex', '„' + item.ex + '”'), el('div','rnote','📝 ' + (item.reg || '')));
+      ap(inner, front, back); ap(card, inner);
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      grid.appendChild(card);
+    });
+    ap(s, lbl, grid);
+  });
+}
+
+function ytId(v) { if (!v) return ''; const m = String(v).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/); return m ? m[1] : String(v); }
+
+function makeVideoPartSlide(part, i, total, vid) {
+  const lbl = UI.videoLabel + (i + 1) + UI.videoPart;
+  const s = makeSlide(lbl, 'video-slide');
+  const head = el('div','slide-head');
+  ap(head, el('h2','', lbl + (total > 1 ? '  (' + (i + 1) + UI.videoOf + total + ')' : '')),
+           el('div','sub', part.range ? (UI.videoSubRange + part.range) : UI.videoSubDefault));
+  const frame = el('div','video-frame'); const ifr = document.createElement('iframe');
+  let q = 'rel=0&modestbranding=1&cc_load_policy=1&cc_lang_pref=it&hl=it';
+  if (part.start != null) q += '&start=' + part.start;
+  if (part.end   != null) q += '&end='   + part.end;
+  ifr.src = 'https://www.youtube-nocookie.com/embed/' + vid + '?' + q;
+  ifr.setAttribute('allow', 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen');
+  ifr.setAttribute('allowfullscreen', ''); ifr.setAttribute('loading', 'lazy'); ifr.title = 'Video — parte ' + (i + 1);
+  frame.appendChild(ifr);
+  const linkRow = el('div','video-linkrow');
+  let hrefT = 'https://www.youtube.com/watch?v=' + vid; if (part.start) hrefT += '&t=' + part.start + 's';
+  const a = el('a','video-link', UI.videoOpen); a.href = hrefT; a.target = '_blank'; a.rel = 'noopener';
+  ap(linkRow, a, el('span','video-linknote', UI.videoOpenNote));
+  const sum = el('div','video-summary'); ap(sum, el('div','vs-label', UI.videoSummary), el('p','', part.summary || ''));
+  ap(s, head, frame, linkRow, sum);
+}
+
+function makeReadingSlide(r) {
+  const s = makeSlide(UI.readLabel, 'read-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', r.h2 || UI.readH2), el('div','sub', r.sub || UI.readSub));
+  const box = el('div','read-box');
+  if (r.title) box.appendChild(el('h3','', r.title));
+  if (r.lead) box.appendChild(el('p','read-lead', r.lead));
+  (r.paragraphs || []).forEach(p => box.appendChild(el('p','', p)));
+  if (r.url) { const a = el('a','read-link', UI.readLink); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; box.appendChild(a); }
+  ap(s, head, box);
+}
+
+function makeGramSlide(g) {
+  const s = makeSlide(g.label, 'gram-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', g.label), el('div','sub', g.subtitle));
+  const block = el('div','gram-block'); const ul = document.createElement('ul');
+  (g.examples || []).forEach(([strong, rest]) => { const li = document.createElement('li'); const st = document.createElement('strong'); st.textContent = strong; li.appendChild(st); li.appendChild(document.createTextNode(rest)); ul.appendChild(li); });
+  ap(block, el('h3','', g.title), el('div','expl', g.expl), ul, el('div','snote', g.snote));
+  ap(s, head, block);
+}
+
+function makeCompSlide(c) {
+  const s = makeSlide(c.label, 'comp-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', c.h2), el('div','sub', c.sub));
+  const lbl = el('div','comp-label', c.compLabel);
+  const hasAns = (c.questions || []).some(q => q[2]);
+  const list = el('div', hasAns ? 'comp-grid' : 'qlist');
+  (c.questions || []).forEach(([num, q, ans]) => {
+    if (ans) {
+      const card = el('div','ccard'); const inner = el('div','ccard-inner');
+      const front = el('div','cface cfront'); ap(front, el('span','cnum', num), el('div','cq', q), el('div','chint', UI.compHint));
+      const back = el('div','cface cback'); ap(back, el('div','ca-label', UI.compAnswer), el('div','ca', ans));
+      ap(inner, front, back); ap(card, inner); card.addEventListener('click', () => card.classList.toggle('flipped')); list.appendChild(card);
+    } else { const item = el('div','qitem'); ap(item, el('span','qnum', num), el('span','', q)); list.appendChild(item); }
+  });
+  ap(s, head, lbl, list);
+}
+
+function makeGapSlide(gf) {
+  const s = makeSlide(UI.gapLabel, 'ex-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.gapH2), el('div','sub', UI.gapSub));
+  const block = el('div','ex-block');
+  const instr = el('div','ex-instr', gf.instr || UI.gapInstr);
+  const wb = el('div','word-bank'); wb.id = 'wb'; const gs = el('div','gap-sentences'); gs.id = 'gap-sents';
+  const btns = el('div','ex-btns');
+  const vBtn = el('button','ak-btn', UI.check); vBtn.onclick = checkGap;
+  const rBtn = el('button','ak-btn grey', UI.reset); rBtn.onclick = resetGap;
+  ap(btns, vBtn, rBtn); ap(block, el('h3','', gf.heading || UI.gapHeading), instr, wb, gs, btns); ap(s, head, block);
+}
+function makeGapAnswerSlide(gf) {
+  const s = makeSlide(UI.gapAkLabel, 'ak-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.gapAkH2), el('div','sub', UI.gapAkSub));
+  const content = el('div','ak-content');
+  (gf.answers || []).forEach(([num, word, quote]) => {
+    const item = el('div','ak-item'); const body = document.createElement('div');
+    body.innerHTML = UI.word + ': <span class="ak-word">' + word + '</span> &nbsp;—&nbsp; <span class="ak-quote">' + quote + '</span>';
+    ap(item, el('span','ak-num', num), body); content.appendChild(item);
+  });
+  ap(s, head, content);
+}
+function makeMatchSlide(m) {
+  const s = makeSlide(UI.matchLabel, 'ex-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.matchH2), el('div','sub', UI.matchSub));
+  const block = el('div','ex-block'); const instr = el('div','ex-instr', UI.matchInstr);
+  const wrap = el('div','match-wrap'); const grid = el('div','match-grid');
+  const leftCol = document.createElement('div'); const rightCol = document.createElement('div');
+  ap(leftCol, el('div','match-col-label', UI.matchTerm)); ap(rightCol, el('div','match-col-label', UI.matchDef));
+  leftCol.id = 'mterms'; rightCol.id = 'mdefs'; ap(grid, leftCol, rightCol);
+  const akBtn = el('button','ak-btn', UI.showAnswers); akBtn.onclick = () => toggleAK('mkey');
+  const ak = el('div','answer-key'); ak.id = 'mkey'; ak.innerHTML = m.key_html || '';
+  ap(wrap, grid, akBtn, ak); ap(block, el('h3','', UI.matchHeading), instr, wrap); ap(s, head, block);
+}
+function makeVFSlide(vfo) {
+  const s = makeSlide(UI.vfLabel, 'ex-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.vfH2), el('div','sub', UI.vfSub));
+  const block = el('div','ex-block'); const instr = el('div','ex-instr', UI.vfInstr);
+  const list = el('div','vf-list'); list.id = 'vf-root';
+  const akBtn = el('button','ak-btn', UI.vfAll); akBtn.onclick = () => toggleAK('vfkey');
+  const ak = el('div','answer-key'); ak.id = 'vfkey'; ak.innerHTML = vfo.key_html || '';
+  ap(block, el('h3','', UI.vfHeading), instr, list, akBtn, ak); ap(s, head, block);
+}
+
+function makeDiscSlide() {
+  const s = makeSlide(UI.discLabel, 'disc-slide');
+  const head = el('div','slide-head'); ap(head, el('h2','', UI.discH2), el('div','sub', UI.discSub));
+  const warn = el('div','speech-warn', UI.speechWarn); warn.id = 'swarn';
+  const card = el('div','disc-card'); const topbar = el('div','disc-topbar');
+  const dots = el('div','disc-dots'); dots.id = 'ddots';
+  const qnum = el('div','disc-qnum', '1. ' + UI.question + UI.ofN + DISC.length); qnum.id = 'dqnum';
+  ap(topbar, dots, qnum);
+  const dq = el('div','disc-q',''); dq.id = 'dq';
+  const cols = el('div','disc-cols'); const col1 = el('div','disc-col');
+  const ubox = el('div','disc-user-box'); ubox.id = 'dubox'; ubox.appendChild(el('span','ph', UI.micPh));
+  ap(col1, el('div','disc-col-label', UI.yourAnswer), ubox);
+  const col2 = el('div','disc-col'); const mbox = el('div','disc-model-box blur'); mbox.id = 'dmbox';
+  const mtext = el('div','mtext',''); mtext.id = 'dmtext'; mbox.appendChild(mtext);
+  const revBtn = el('button','reveal-btn', UI.reveal); revBtn.onclick = revealModel;
+  ap(col2, el('div','disc-col-label', UI.modelAnswer), mbox, revBtn); ap(cols, col1, col2);
+  const microw = el('div','mic-row'); const micbtn = el('button','mic-btn','🎤'); micbtn.id = 'micbtn'; micbtn.onclick = toggleMic;
+  const micstat = el('div','mic-status', UI.micStart); micstat.id = 'micstat'; ap(microw, micbtn, micstat);
+  const nav = el('div','disc-nav');
+  const prevBtn = el('button','disc-nav-btn', UI.prev); prevBtn.id = 'dprev'; prevBtn.onclick = () => dNav(-1);
+  const nextBtn = el('button','disc-nav-btn', UI.next); nextBtn.id = 'dnext'; nextBtn.onclick = () => { if (dIdx >= DISC.length - 1) go(1); else dNav(1); };
+  ap(nav, prevBtn, nextBtn); ap(card, topbar, dq, cols, microw, nav); ap(s, head, warn, card);
+}
+
+function makeHWSlide(h) {
+  const s = makeSlide(h.label, 'hw-slide ' + (h.bgCls || ''));
+  const head = el('div','slide-head'); ap(head, el('h2','', h.label), el('div','sub', UI.hwSub));
+  const block = el('div','hw-block ' + (h.blockCls || ''));
+  const h3 = el('h3','', h.h3text); if (h.h3color) h3.style.color = h.h3color;
+  const body = document.createElement('div'); body.innerHTML = h.bodyHTML; body.style.cssText = 'font-size:1.6vw;line-height:1.9;flex:1';
+  ap(block, h3, body);
+  if (h.chips && h.chips.length) { const row = el('div','chip-row'); h.chips.forEach(t => row.appendChild(el('span','chip', t))); block.appendChild(row); }
+  ap(s, head, block);
+}
+
+// ── BUILD (B1 shape: warm-up → vocab → video → reading → grammar → comprehension → exercises → discussion → homework)
+function build() {
+  const D = SPEC.dividers || {};
+  makeTitle(SPEC.title_slide || {});
+
+  makeDivider(D.warmup);
+  makeQuestionsSlide(UI.warmupLabel, UI.warmupH2, UI.warmupSub, UI.warmupBox, SPEC.warmup.questions);
+  if (SPEC.warmup.episode) makeProseSlide('Riscaldamento — Di cosa parla?', SPEC.warmup.episode.h2, SPEC.warmup.episode.sub, SPEC.warmup.episode.body);
+  if (SPEC.figures) makeFiguresSlide(SPEC.figures);
+
+  makeDivider(D.vocab);
+  const per = 2; // rule: 8 cards per slide (2 groups × 4)
+  for (let i = 0; i < VOCAB.length; i += per) {
+    makeVocabSlide('Parole chiave — ' + (Math.floor(i/per) + 1) + '/' + Math.ceil(VOCAB.length/per), VOCAB.slice(i, i + per));
+  }
+
+  if (SPEC.video && SPEC.video.parts && SPEC.video.parts.length) {
+    makeDivider(D.video);
+    const vid = ytId(SPEC.video.url || SPEC.video.video_id);
+    SPEC.video.parts.forEach((p, i) => makeVideoPartSlide(p, i, SPEC.video.parts.length, vid));
+  }
+
+  if (SPEC.reading) { makeDivider(D.reading); makeReadingSlide(SPEC.reading); }
+
+  if (SPEC.grammar && SPEC.grammar.length) { makeDivider(D.grammar); SPEC.grammar.forEach(makeGramSlide); }
+
+  makeDivider(D.comprehension);
+  (SPEC.comprehension || []).forEach(makeCompSlide);
+
+  makeDivider(D.exercises);
+  if (SPEC.gapfill) { makeGapSlide(SPEC.gapfill); makeGapAnswerSlide(SPEC.gapfill); }
+  if (SPEC.match) makeMatchSlide(SPEC.match);
+  if (SPEC.verofalso) makeVFSlide(SPEC.verofalso);
+
+  makeDivider(D.discussion);
+  makeDiscSlide();
+
+  if (SPEC.homework && SPEC.homework.length) { makeDivider(D.homework); SPEC.homework.forEach(makeHWSlide); }
+}
+build();
+
+// ── NAVIGATION ───────────────────────────────────────────────────
+const TOTAL = SLIDES.length; let cur = 0;
+SLIDES[0].el.classList.add('active');
+const DISC_IDX = SLIDES.findIndex(s => s.el.classList.contains('disc-slide'));
+function go(d) {
+  SLIDES[cur].el.classList.remove('active');
+  cur = Math.max(0, Math.min(TOTAL - 1, cur + d));
+  SLIDES[cur].el.classList.add('active'); SLIDES[cur].el.scrollTop = 0; updateNav();
+  if (cur === DISC_IDX) initMicPermission();
+}
+function updateNav() {
+  document.getElementById('slide-label').textContent = (cur+1) + ' / ' + TOTAL + ' — ' + SLIDES[cur].label;
+  document.getElementById('pb').style.width = ((cur+1)/TOTAL*100) + '%';
+  document.getElementById('btn-prev').disabled = cur === 0;
+  document.getElementById('btn-next').disabled = cur === TOTAL-1;
+}
+updateNav();
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+  if ((e.key==='r'||e.key==='R') && cur===DISC_IDX) toggleMic();
+});
+
+// ── GAP FILL ─────────────────────────────────────────────────────
+let selWord = null;
+function wireGap() {
+  const wb = document.getElementById('wb'); const gs = document.getElementById('gap-sents'); if (!wb || !gs) return;
+  [...GAP_WORDS].sort(()=>Math.random()-0.5).forEach(w => {
+    const d = el('div','dword', w); d.dataset.w = w;
+    d.onclick = () => { if (d.classList.contains('used')) return; document.querySelectorAll('.dword').forEach(x=>x.classList.remove('sel-w')); d.classList.add('sel-w'); selWord = w; };
+    wb.appendChild(d);
+  });
+  GAP_SENTS.forEach(s => { const d = el('div','gap-sentence'); d.innerHTML = s.pre + ' <span class="drop-zone" data-blank="'+s.blank+'" onclick="fillZone(this)">_ _ _ _ _</span> ' + s.post; gs.appendChild(d); });
+}
+function fillZone(z) {
+  if (!selWord || z.classList.contains('ok')) return;
+  document.querySelectorAll('.drop-zone').forEach(oz=>{ if(oz!==z && oz.dataset.filled===selWord){oz.textContent='_ _ _ _ _';oz.classList.remove('filled','ok','wrong');oz.dataset.filled='';} });
+  z.textContent = selWord; z.classList.add('filled'); z.dataset.filled = selWord;
+  document.querySelectorAll('.dword').forEach(d=>d.classList.remove('sel-w')); selWord = null;
+}
+function checkGap() { document.querySelectorAll('.drop-zone').forEach(z=>{ z.classList.remove('ok','wrong'); if(z.dataset.filled===z.dataset.blank) z.classList.add('ok'); else if(z.dataset.filled) z.classList.add('wrong'); }); }
+function resetGap() { document.querySelectorAll('.drop-zone').forEach(z=>{z.textContent='_ _ _ _ _';z.classList.remove('filled','ok','wrong');z.dataset.filled='';}); document.querySelectorAll('.dword').forEach(d=>d.classList.remove('used','sel-w')); selWord = null; }
+
+// ── MATCHING ─────────────────────────────────────────────────────
+let selTerm = null;
+function wireMatch() {
+  const tc = document.getElementById('mterms'), dc = document.getElementById('mdefs'); if (!tc || !dc) return;
+  const shuffled = [...MATCH].sort(()=>Math.random()-0.5);
+  MATCH.forEach((m,i)=>{ const e2 = el('div','mitem', m.t); e2.dataset.pair = i; e2.dataset.side='t';
+    e2.onclick = () => { if (e2.classList.contains('matched')) return; document.querySelectorAll('.mitem[data-side="t"]').forEach(x=>x.classList.remove('sel')); e2.classList.add('sel'); selTerm = e2; };
+    tc.appendChild(e2); });
+  shuffled.forEach(m=>{ const oi = MATCH.findIndex(x=>x.d===m.d); const e2 = el('div','mitem', m.d); e2.dataset.pair = oi; e2.dataset.side='d';
+    e2.onclick = () => { if (!selTerm || e2.classList.contains('matched')) return;
+      if (selTerm.dataset.pair === e2.dataset.pair) { selTerm.classList.remove('sel'); selTerm.classList.add('matched'); e2.classList.add('matched'); selTerm = null; }
+      else { e2.classList.add('bad'); setTimeout(()=>e2.classList.remove('bad'),500); const st = selTerm; selTerm = null; st.classList.add('bad'); setTimeout(()=>st.classList.remove('bad','sel'),500); } };
+    dc.appendChild(e2); });
+}
+
+// ── VERO / FALSO / NON DETTO ──────────────────────────────────
+function wireVF() {
+  const root = document.getElementById('vf-root'); if (!root) return;
+  VF.forEach((item,i)=>{
+    const row = el('div','vf-row'); const btns = el('div','vf-btns');
+    UI.vfBtns.forEach(([cls,val])=>{ const b = el('button','vfb '+cls, val); b.onclick = () => checkVF(b, cls, item.a, i); btns.appendChild(b); });
+    const body = document.createElement('div'); body.style.flex='1';
+    body.appendChild(el('div','', String(i+1)+'. '+item.s));
+    if (item.note) { const n = el('div','vf-note','→ '+item.note); n.id='vfn'+i; body.appendChild(n); }
+    ap(row, btns, body); root.appendChild(row);
+  });
+}
+function checkVF(btn, chosen, correct, idx) {
+  btn.closest('.vf-row').querySelectorAll('.vfb').forEach(b=>b.classList.remove('correct','incorrect'));
+  if (chosen===correct) btn.classList.add('correct');
+  else { btn.classList.add('incorrect'); const n=document.getElementById('vfn'+idx); if(n) n.classList.add('show'); }
+}
+
+// ── DISCUSSION + MIC ─────────────────────────────────────────────
+let dIdx=0, recog=null, recording=false, micOK=false, micStream=null;
+function wireDisc() {
+  const dots = document.getElementById('ddots'); if (!dots) return;
+  DISC.forEach((_,i)=>{ const d = el('div','disc-dot'+(i===0?' active':'')); d.onclick = () => gotoDisc(i); dots.appendChild(d); });
+  loadDisc();
+}
+function loadDisc() {
+  const dq = document.getElementById('dq'); if (!dq) return;
+  dq.textContent = DISC[dIdx].q;
+  document.getElementById('dqnum').textContent = (dIdx+1) + '. ' + UI.question + UI.ofN + DISC.length;
+  document.getElementById('dmtext').textContent = DISC[dIdx].m;
+  document.getElementById('dmbox').classList.add('blur');
+  if (!recording) { const ub = document.getElementById('dubox'); ub.innerHTML=''; ub.appendChild(el('span','ph', UI.micPh)); ub.classList.remove('listening'); }
+  document.querySelectorAll('.disc-dot').forEach((d,i)=>d.classList.toggle('active', i===dIdx));
+  const pb = document.getElementById('dprev'), nb = document.getElementById('dnext');
+  if (pb) pb.disabled = dIdx === 0;
+  if (nb) { const last = dIdx >= DISC.length - 1; nb.textContent = last ? UI.nextSlide : UI.next; nb.classList.toggle('to-slide', last); }
+}
+function dNav(d) { document.querySelectorAll('.disc-dot')[dIdx].classList.add('done'); dIdx = Math.max(0, Math.min(DISC.length-1, dIdx+d)); loadDisc(); }
+function gotoDisc(i){ dIdx=i; loadDisc(); }
+function revealModel(){ document.getElementById('dmbox').classList.toggle('blur'); }
+function initMicPermission() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { const w=document.getElementById('swarn'); if(w) w.style.display='block'; return; }
+  if (micOK && micStream && micStream.active) return;
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => { micStream = stream; micOK = true; const st = document.getElementById('micstat'); if (st) st.textContent = UI.micReady; })
+      .catch(e => { if (e && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) { const w=document.getElementById('swarn'); if(w) w.style.display='block'; } });
+  }
+}
+function toggleMic(){ recording ? stopMic() : startMic(); }
+function startMic() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if (!SR) return;
+  recog = new SR(); recog.lang='it-IT'; recog.continuous=true; recog.interimResults=true;
+  const box = document.getElementById('dubox'); box.innerHTML=''; box.classList.add('listening');
+  let final='';
+  recog.onresult = e => { let interim=''; for (let i=e.resultIndex; i<e.results.length; i++) { if (e.results[i].isFinal) final += e.results[i][0].transcript + ' '; else interim += e.results[i][0].transcript; } box.textContent = final + interim; micOK = true; };
+  recog.onerror = e => { if (e.error!=='no-speech') stopMic(); };
+  recog.onend = () => { if (recording) recog.start(); };
+  recog.start(); recording = true;
+  document.getElementById('micbtn').classList.add('on'); document.getElementById('micbtn').textContent = '⏹';
+  document.getElementById('micstat').textContent = UI.micRec;
+}
+function stopMic() {
+  if (recog) { recog.stop(); recog=null; } recording=false;
+  document.getElementById('micbtn').classList.remove('on'); document.getElementById('micbtn').textContent = '🎤';
+  document.getElementById('micstat').textContent = UI.micPause; document.getElementById('dubox').classList.remove('listening');
+}
+function toggleAK(id){ document.getElementById(id).classList.toggle('show'); }
+
+wireGap(); wireMatch(); wireVF(); wireDisc();
+
+// ── Text-size control ────────────────────────────────────────────
+(function(){
+  let z = 100;
+  const bar = document.createElement('div'); bar.id='tsize';
+  bar.innerHTML = '<span>' + UI.tsize + '</span><button id="tsm">A−</button><span id="tsv">100%</span><button id="tsp">A+</button><button id="tsr">⟲</button>';
+  const _tb=document.getElementById('topbar'), _nb=document.getElementById('nav-btns');
+  if(_tb && _nb) _tb.insertBefore(bar, _nb); else document.body.appendChild(bar);
+  function apply(){ document.getElementById('viewport').style.zoom = (z/100); document.getElementById('tsv').textContent = z+'%'; }
+  document.getElementById('tsm').onclick = ()=>{ z=Math.max(70,z-10); apply(); };
+  document.getElementById('tsp').onclick = ()=>{ z=Math.min(220,z+10); apply(); };
+  document.getElementById('tsr').onclick = ()=>{ z=100; apply(); };
+})();
+</script>
+</body>
+</html>
